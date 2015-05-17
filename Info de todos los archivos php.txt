@@ -1,0 +1,9 @@
+-config.php contiene la información necesaria para conectarse con el servidor y usar la base de datos.
+
+-modelo.php conecta al servidor y a la base de datos. Todas las clases que se modelen posteriormente deben extender ésta clase.
+
+-pizza_class.php : La clase Pizza cos sus métodos.
+
+-recibirPizza.php : Crea un objeto de tipo Pizza y llama al método CargarPizza();
+
+-recibirCategoria.php: Crea un objeto de tipo Pizza y llama al método extraerPorCategoria(); 

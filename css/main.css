@@ -1,0 +1,1252 @@
+/*######################## Estilos Globales ########################*/
+
+*{
+	margin:0;
+	padding:0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html, body, .bg{
+	height: 100%;
+}
+
+body{
+	background-color: #000;
+	font-family: helvetica;
+	font-size: 16px;
+}
+
+.wrapper{
+	margin:0 auto;
+	width:90%;
+	max-width: 1500px;
+	min-width: 400px;
+	overflow:hidden;
+}
+
+.btn{
+	text-decoration: none;
+	display: inline-block;
+	padding:10px;
+	letter-spacing: 3px;
+
+}
+
+/*######################## Estilos del fondo-slider ########################*/
+
+
+.bg{
+	z-index:-1;
+	width: 100%;
+	position:fixed;
+	top:0;
+	/*-webkit-filter: blur(5px) brightness(0.8);
+	-Moz-filter: blur(5px) brightness(0.8);*/
+}
+
+.bg ul{
+	width: 100%;
+	height: 100%;
+}
+
+.bg ul li{
+	width: 100%;
+	height: 100%;
+	position:fixed;
+	top:0;
+	/*-webkit-filter: blur(5px) brightness(0.8);
+	-Moz-filter: blur(5px) brightness(0.8);*/
+	transition:opacity 3s ease;
+	-webkit-transition:opacity 3s ease;
+	-Moz-transition:opacity 3s ease;
+
+}
+
+.bg ul li:nth-of-type(1){
+	background: url("../images/bg.jpg") no-repeat center center fixed;
+		-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.bg ul li:nth-of-type(2){
+	background: url("../images/bg2.jpg") no-repeat center center fixed;
+	opacity:0;
+		-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.bg ul li:nth-of-type(3){
+	background: url("../images/bg3.jpg") no-repeat center center fixed;
+	opacity:0;
+		-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.bg ul li:nth-of-type(4){
+	background: url("../images/bg4.jpg") no-repeat center center fixed;
+	opacity:0;
+		-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+
+
+/*############################### ESTILOS DEL HEADER ######################*/
+
+header{
+	width: 100%;
+	background-color: rgba(000, 000, 000, 0.7);
+	position:relative;
+	top:0;
+}
+
+header nav, .user-section, .logo {
+	float:left;
+}
+
+header > nav > ul{
+	list-style: none;
+}
+
+header nav > ul li{
+	display: inline-block;
+}
+
+header a{
+	padding:18px 10px;
+	text-decoration: none;
+	display:block;
+}
+
+header p, header a{
+	color:rgb(238, 238, 238);
+	font-size: 0.8em;
+}
+
+header nav{
+	text-align: center;
+	width: 50%;
+}
+
+header .logo{
+	width: 25%;
+}
+
+header .logo object{
+	width: auto;
+	height: 50px;
+	vertical-align: middle;
+}
+
+header .logo object text{
+		font-family: helvetica;
+}
+
+header .user-section{
+	text-align: right;
+	width: 25%;
+}
+
+header .user-section .carrito, header .user-section a {
+	display:inline-block;
+}
+
+header i{
+	font-size: 1.3em;
+}
+
+header .carrito a{
+	padding: 0;
+	position: relative;
+	top: 3px;
+}
+
+
+
+/*############################### ESTILOS DEL MAIN ######################*/
+.main{
+	min-height: 85vh;
+}
+
+
+
+
+/*############################### ESTILOS DEL FOOTER ######################*/
+
+footer{
+	width: 100%;
+	overflow: hidden;
+	background-color: rgba(000, 000, 000, 0.7);
+	padding: 10px 0;
+}
+
+footer a, footer p, footer i {
+	color:rgb(238, 238, 238);
+}
+
+footer > div > div{
+	float:left;
+	width: 33.33%;
+}
+
+footer .social{
+	text-align: left;
+}
+
+footer .social a{
+	text-decoration: none;
+	padding: 5px;
+
+}
+
+footer .social a i{
+	font-size: 1.2em;
+
+}
+
+footer .info{
+	text-align: center;
+}
+
+footer .desarrollo{
+	text-align: right;
+}
+
+footer .desarrollo p{
+	display:inline-block;
+
+}
+
+footer .desarrollo a{
+	text-decoration: none;
+	color:rgb(238, 238, 238);
+}
+
+
+/*############################### FIN ESTILOS DEL FOOTER ######################*/
+/*############################### ESTILOS DE PIZZA.HTML ######################*/
+
+.box{
+	display: inline-block;
+	width: 30%;
+	min-width: 250px;
+	height: 300px;
+	padding:5px;
+	margin:10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+
+}
+
+.pizza{
+	width: 100%;
+	height: 80%;
+	position:relative;
+	overflow: hidden;
+	border-radius: 3px
+
+}
+
+.name{
+	height: 20%;
+	position: relative;
+}
+
+.pizza:hover .oculto{
+	opacity:1;
+}
+
+.box img{
+	height: 100%;
+	width: auto;
+	position: absolute;
+	transition:all 2s ease;
+}
+
+.box:hover img{
+
+	height: 100%;
+	width: auto%;
+	-webkit-transform: scale(1.2);
+	 	transform: scale(1.2);
+	 	transition:2s ease;
+	position: absolute;
+}
+
+.box p{
+	font-size: 1.5em;
+	color:rgb(200, 200, 200);
+	text-align: center;
+
+}
+
+.oculto{
+	opacity: 0;
+	position: absolute;
+	z-index: 10;
+	background: rgba(0, 0, 0, 0.3);
+	bottom: 0;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#50000000,endColorstr=#50000000);
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	transition:opacity 0.5s ease;
+	-webkit-transition:opacity 0.5s ease;
+	-Moz-transition:opacity 0.5s ease;
+}
+
+.box i{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	-Moz-transform:translate(-50%, -50%);
+	-webkit-transform:translate(-50%, -50%);
+	font-size: 4em;
+	color:rgb(249, 105, 14);
+}
+
+.box i:hover{
+	cursor:pointer;
+}
+
+.horizontal-center{
+	overflow: hidden;
+	width: 100%;
+	position: absolute;
+	top:50%;
+	transform:translateY(-50%);
+	-webkit-transform:translateY(-50%);
+	-Moz-transform:translateY(-50%);
+
+}
+
+.horizontal-center .title{
+	float:left;
+	width: 80%;
+}
+
+.horizontal-center .title p{
+	text-transform: uppercase;
+}
+
+.horizontal-center .precio-pizza{
+	float:left;
+	width: 20%;
+
+}
+
+.horizontal-center .precio-pizza p{}
+
+
+	/*############################### ESTILOS DE REGISTRO.HTML ######################*/
+
+.registro{
+	overflow:hidden;
+	margin:10px auto;
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+.registro form{
+	overflow: hidden;
+}
+
+.form-box{
+	float:left;
+	display:block;
+	width: 100%;
+	padding:10px;
+}
+
+.form-left{
+	display: block;
+	float: left;
+	width: 50%;
+
+}
+
+.form-left-80{
+	display: block;
+	float: left;
+	width: 75%;
+
+}
+
+.form-left-20{
+	display: block;
+	float: left;
+	width: 20%;
+}
+
+.form-left-45{
+	display: block;
+	float: left;
+	width: 45%;
+}
+
+.registro form label{
+	color:#fff;
+	display: block;
+}
+
+.registro form input, .registro form select{
+	display: block;
+	height: 30px;
+	margin: 10px 0;
+	width: 80%;
+}
+
+.btn-box{
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+.btn-form{
+	letter-spacing: 3px;
+	display: inline-block;
+	text-decoration: none;
+	padding:10px;
+	color:#fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+
+/*############################### ESTILOS DE PIZZA-PREDEFINIDA y PERSONALIZADA.HTML ######################*/
+
+.pizza-predefinida{
+	color:#fff;
+	overflow:hidden;
+	margin:10px auto;
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+
+.pizza-predefinida .flex-item{
+	flex: 1 0 auto;
+	width: 50%;
+	padding:10px;
+}
+
+.pizza-predefinida .flex-item:last-of-type{
+	display: flex;
+}
+
+.pizza-predefinida .flex-item ul{
+	list-style: none;
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.pizza-predefinida .pizza-foto{
+	height: 300px;
+
+}
+
+.pizza-predefinida .pizza-foto img{
+	height: 100%;
+	width: auto;
+}
+
+.pizza-predefinida .flex-item > .pizza > p {
+	text-align: center;
+	padding: 10px;
+}
+
+
+.btn-submit{
+	letter-spacing: 3px;
+	color:#fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+.ingredientes p, .opciones p, .masa p, .precio p{
+	padding:10px 0;
+	font-size: 1.5em;
+
+}
+
+.pizza-predefinida .opciones ul{
+	display:block;
+}
+
+.pizza-predefinida .flex-item ul li{
+	padding:5px 0;
+	flex:1 1 50%;
+}
+
+.pizza-predefinida .flex-item label{
+	margin-left:10px;
+}
+
+.pizza-predefinida .flex-item .opciones ul li{
+	display: inline-block;
+}
+
+.pizza-predefinida .flex-item .opciones ul li:last-of-type{
+	margin-left:10px;
+}
+.precio-btn{
+	flex: 1 0 auto;
+	align-self: flex-end;
+	overflow: hidden;
+}
+
+.pizza-predefinida .precio-btn .precio{
+	float:left;
+	letter-spacing: 1px;
+}
+
+.pizza-predefinida .precio-btn .precio p{
+	padding:10px 0;
+}
+
+.pizza-predefinida .precio-btn .precio p span{
+	color:tomato;
+	font-weight: bold;
+	
+}
+
+.precio-btn a{
+	float:right;
+}
+
+
+/*############################### ESTILOS DE CARRITO.HTML ######################*/
+
+.main .carrito{
+	margin:10px auto;
+	padding:10px;
+	background-color: rgba(000, 000, 000, 0.7);
+	color:#fff;
+	overflow: hidden;
+}
+
+.main .carrito .productos{
+	margin-bottom:10px;
+	display: -webkit-flex;
+	display: -Moz-flex;
+	display: flex;
+	flex-flow: row wrap;
+	-webkit-flex-flow: row wrap;
+	-Moz-flex-flow: row wrap;
+	justify-content: center;
+	border-bottom:1px solid rgba(255, 255, 255, 0.5);
+
+}
+
+.main .carrito .productos .flex-item{
+	flex:1 1 100px;
+	-webkit-flex:1 1 100px;
+	-Moz-flex:1 1 100px;
+
+	display: -webkit-flex;
+	flex-flow: -webkit-column wrap;
+	display: -moz-flex;
+	flex-flow: -moz-column wrap;
+	display: flex;
+	flex-flow: column wrap;
+
+
+
+}
+
+.main .carrito .productos .flex-item .title{
+	border-bottom:1px solid rgba(255, 255, 255, 0.5);
+	
+}
+
+.main .carrito .productos .flex-item .title p{
+	padding:10px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	
+}
+
+.main .carrito .productos .flex-item .items{
+	flex: 1 1 100%;
+	-webkit-flex: 1 1 100%;
+	-moz-flex: 1 1 100%;
+	align-self: stretch;
+	display: flex;
+  	flex-flow: column wrap;
+	
+}
+
+.main .carrito .productos .flex-item .items .item{
+	flex: 1 1 100%;
+	-webkit-flex: 1 1 100%;
+	-moz-flex: 1 1 100%;
+	align-self: stretch;
+	border-bottom:1px solid rgba(255, 255, 255, 0.5);
+
+}
+
+.item-true{
+	background-color: rgba(38, 166, 91, 0.5);
+}
+
+
+.item-false{
+	background-color: rgba(239, 72, 54, 0.5);
+}
+
+.main .carrito .productos .flex-item .items .item p{
+	padding:10px;
+	
+}
+
+.main .carrito .total{
+	float:right;
+}
+
+.main .carrito .total p{
+	padding:10px;
+	font-size: 1.5em;
+}
+
+.main .carrito .total p span{
+	color:tomato;
+}
+
+.main .carrito .controles{
+	float:right;
+	width: 100%;
+	text-align: right;
+}
+
+.main .carrito .controles a{}
+
+.btn-warning{
+	color:#fff;
+	background-color: rgba(239, 72, 54, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+.btn-warning:hover{
+	background-color: rgba(239, 72, 54, 1);
+}
+
+
+.btn-success{
+	color:#fff;
+	background-color: rgba(38, 166, 91, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+.btn-success:hover{
+	background-color: rgba(38, 166, 91, 1);
+}
+
+.btn-deshabilitado{
+	background-color: rgba(38, 166, 91, 0.3);
+	cursor: default;
+}
+
+.btn-deshabilitado:hover{
+	background-color: rgba(38, 166, 91, 0.3) !important;
+}
+
+#cancelar-productos-carrito{
+	display:none;
+}
+
+#confirmacion{
+	display:none;
+	width: auto;
+	text-align: center;
+}
+
+
+#confirmacion .title{
+	width: 100%;
+}
+
+#confirmacion .title p{
+	font-weight: bold;
+	color:#fff;
+	padding: 10px;
+	background-color: tomato;
+}
+
+#confirmacion form{
+	padding:10px;
+}
+
+#confirmacion form > p{
+	padding: 10px;
+}
+
+
+#confirmacion form .tabla{
+	overflow: hidden;
+
+}
+
+#confirmacion form .tabla .col-50 {
+	display: block;
+}
+
+
+#confirmacion form label{
+	margin-top: 20px;
+	display:block;
+}
+
+#confirmacion form input{
+	margin:0 auto;
+	height: 30px;
+	display:block;
+
+
+}
+
+#confirmacion form select{
+	margin: 0 auto;
+	height: 30px;
+	display:block;
+
+}
+
+#confirmacion form a{
+	margin-top: 20px;
+}
+
+#confirmacion form .demora-info{
+	margin-top: 20px;
+}
+
+#confirmacion form .demora-info p{}
+
+#confirmacion form .demora-info p span{}
+
+
+/*############################### ESTILOS DE pizzasv2-menuDesplegable.HTML ######################*/
+
+
+
+.menu-desplegable{
+	text-transform: uppercase;
+	display:none;
+	list-style: none;
+	position:absolute;
+	padding:10px;
+	background-color: rgba(000, 000, 000, 0.8);
+	color:#fff;
+	z-index: 999;
+	border-bottom: 1px solid rgba(38, 166, 91, 0.7);
+	border-left: 1px solid rgba(38, 166, 91, 0.7);
+	border-right: 1px solid rgba(38, 166, 91, 0.7);
+}
+
+.menu-desplegable li{
+	display: block;
+	border-bottom:1px solid rgba(38, 166, 91, 0.7);
+}
+
+.menu-desplegable li a:hover{
+	background-color: rgba(38, 166, 91, 0.7);
+
+}
+
+.open:hover .menu-desplegable{
+	display:block;
+}
+
+header nav > ul > li > a:hover, header .user-section a:hover{
+	color:rgba(38, 166, 91, 0.7);
+	font-weight: bold;
+}
+
+.boxes{
+	float:left;
+}
+
+
+
+
+.fixed-menu, .fixed-menu-small{
+	left: 0px;
+	position: fixed;
+	top: 40%;
+	z-index: 300;
+
+}
+
+.fixed-menu ul{
+	list-style: none;
+	
+}
+
+.fixed-menu li {
+	border: 1px solid black;
+	background-color: rgba(0, 0, 0, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+.fixed-menu ul li a:hover {
+	color:#FFF;
+	font-style: italic;
+	transition:1s ease;
+	-webkit-transition:1s ease;
+	-moz-transition:1s ease;
+	-o-transition:1s ease;
+	-ms-transition:1s ease;
+}
+
+.fixed-menu ul li a {
+	display: inline-block;
+	text-decoration: none;
+	padding: 10px 15px;
+	font-size: 1.0em;
+	color: #C8C8C8;
+	transition:1s ease;
+	-webkit-transition:1s ease;
+	-ms-transition:1s ease;
+	-moz-transition:1s ease;
+	-o-transition:1s ease;
+}
+
+.fixed-menu-small{
+	overflow: hidden;
+	color:#fff;
+	display:none;
+	width: 35px;
+	background-color: rgba(0, 0, 0, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	transition:all 1s ease;
+	-webkit-transition:all 1s ease;
+	-moz-transition:all 1s ease;
+	-ms-transition:all 1s ease;
+	-o-transition:all 1s ease;
+}
+
+.fixed-menu-small .title{
+	padding: 5px;
+	float:left;
+	position: absolute;
+	top:50%;
+	transform:translateY(-50%);
+	-webkit-transform:translateY(-50%);
+	-moz-transform:translateY(-50%);
+	-ms-transform:translateY(-50%);
+	-o-transform:translateY(-50%);
+}
+
+.fixed-menu-small .ancho{
+	width: 250px;
+	overflow: hidden;
+	position: relative;
+}
+
+.fixed-menu-small .title p{
+	padding:5px;
+}
+
+.fixed-menu-small .menu{
+	float:left;
+	margin-left: 35px;
+	border-left: 1px solid rgba(38, 166, 91, 0.7);
+
+}
+
+.fixed-menu-small .menu ul{
+	list-style: none;
+}
+
+.fixed-menu-small .menu ul li{
+	border-bottom: 1px solid rgba(38, 166, 91, 0.7);
+}
+
+.fixed-menu-small .menu ul li:last-of-type{
+	border-bottom: none;
+}
+
+.fixed-menu-small .menu ul li a{
+	display: block;
+	text-decoration: none;
+	padding: 5px;
+	font-size: 1.0em;
+	color: #C8C8C8;
+}
+
+.fixed-menu-small .menu ul li a:hover{
+	background-color: rgba(38, 166, 91, 0.7);
+}
+
+.fixed-menu-small:hover{
+	width: 205px;
+}
+
+@media screen and (max-width: 1310px){
+	.fixed-menu{
+		width: 130px;
+	}
+}
+
+@media screen and (max-width: 1200px){
+	.fixed-menu{
+		display:none;
+	}
+
+	.fixed-menu-small{
+		display:block;
+	}
+}
+
+/*######################## Estilos de pizza-personalizada.html ########################*/
+
+.ingredientes .info{
+	font-size: 0.9em;
+	padding: 0px;
+	padding-bottom: 10px;
+}
+
+.masa-pers p, .ingr-pers p {
+	font-size:1.3em;
+}
+
+.masa-pers p, .ingr-pers p, .masa p, .ingredientes p, .opciones p{
+	color:rgb(242, 120, 75);
+	letter-spacing: 1px;
+}
+
+.armado ul{
+	min-height: 30px;
+}
+
+/*######################## Estilos de caja iniciar sesion ########################*/
+
+#iniciar-sesion{
+	display:none;
+	width: 300px;
+	text-align: center;
+
+}
+
+#iniciar-sesion .title{
+	width: 100%;
+
+}
+
+#iniciar-sesion .title p{
+	width: 100%;
+	padding: 10px;
+	font-weight: bold;
+	background-color: rgba(38, 166, 91, 1);
+	font-size: 1.1em;
+}
+
+#iniciar-sesion form{
+	padding:10px;
+	width: 100%;
+}
+
+#iniciar-sesion form label{
+	display:block;
+	margin-top: 10px;
+}
+
+#iniciar-sesion form input{
+	display:block;
+	margin:0 auto;
+	margin-top:10px;
+	height: 30px;
+	width: 80%;
+
+}
+
+#iniciar-sesion form a{
+	display:block;
+	margin: 0 auto;
+}
+
+#iniciar-sesion form a:nth-of-type(1){
+	margin-top: 25px;
+	background-color: rgba(38, 166, 91, 1);
+	box-shadow: none;
+	width: 80%;
+
+}
+
+#iniciar-sesion form a:nth-of-type(1):hover{
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);	
+}
+
+#iniciar-sesion form a:nth-of-type(2){
+	margin-top: 10px;
+	text-decoration: none;
+	color:#000;
+	font-size: 0.8em;
+	color:tomato;
+}
+
+
+/*######################## Estilos de index.html ########################*/
+
+/*############ Estilos del slider #############*/
+
+.slider-box {
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	padding:10px;
+	margin:10px auto;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	height: 80vh;
+}
+
+.slider-box .slider{
+	width: 100%;
+	height: 100%;
+}
+
+.slider-box .slider > ul{
+	list-style: none;
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+}
+
+.slider-box .slider > ul li{
+	position: absolute;
+	width: 100%;
+	display: inline-block;
+	transition:all 1s ease;
+	-webkit-transition:all 1s ease;
+	-moz-transition:all 1s ease;
+}
+
+#slider-promocion{
+	transform:translateX(0%);
+	-webkit-transform:translateX(0%);
+	-moz-transform:translateX(0%);
+}
+
+#slider-armaPizza{
+	transform:translateX(100%);
+	-webkit-transform:translateX(100%);
+	-moz-transform:translateX(100%);
+
+}
+
+#slider-mixtaPizza{
+	transform:translateX(200%);
+	-webkit-transform:translateX(200%);
+	-moz-transform:translateX(200%);
+
+}
+
+.slider-box .slider > ul li img{
+	width: 100%;
+	height: auto;
+}
+
+.slider-box .slider-controles{
+	position: absolute;
+	bottom: 0;
+	right: 50px;
+}
+
+.slider-box .slider-controles ul{
+	list-style: none;
+}
+
+.slider-box .slider-controles ul li{
+	display: inline-block;
+	margin:0 5px;
+}
+
+.slider-box .slider-controles ul li i{}
+
+
+/*############################### 6-ESTILOS DE SUCURSALES.HTML ######################*/
+
+
+.wrapper-sucursales{
+	margin: 10px auto;
+	width: 100%;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	text-align: center;
+}
+	.maps-sucursales{
+	float: right;
+	position: relative;
+	width: 47%;
+	margin-top:3%;
+	margin-right: 3%;
+}
+
+.sucursales{
+	width: 47%;
+	float: left;
+	color: #FFF;
+}
+
+.titular {
+	text-align: center;
+	font-size: 30px;
+}
+.subtitular{
+	margin-top: 3%;
+	font-size: 22px;
+	padding:10px 0px;
+}
+
+.subtitular-texto{
+	font-size: 15px;
+}
+
+.resaltado{
+	font-style: italic;
+	font-weight: bold;
+}
+
+.abierto {
+	padding: 10px 0px;
+}
+
+
+#map{
+	margin-top: 1%;
+	margin-right: 1%;
+	width: auto;
+	height: 500px;
+	margin-bottom: 1%;
+}
+
+
+/*############################### 7-ESTILOS DE CONTACTO.HTML ######################*/
+
+
+.wrapper-sucursales form{
+	margin-top: 10px;
+	width: 50%;
+	margin-left: auto;
+	margin-right:auto;
+}
+
+.full{
+	width: 100%;
+}
+.together{
+	display: inline;
+	width: 49.4%;
+}
+
+.wrapper-sucursales input, .wrapper-sucursales textarea{
+
+	display:block;
+	padding: 10px 0px;
+	margin-bottom: 10px;
+	font-family: Helvetica;
+	border: none;
+	transition:500ms ease;
+	font-weight: bold;
+}
+
+.wrapper-sucursales ::-webkit-input-placeholder {
+   text-align: center;
+  
+   color: #000;
+   text-transform:uppercase;
+}
+
+.wrapper-sucursales :-moz-placeholder { /* Firefox 18- */
+   text-align: center;
+ 
+   color: #000;
+   text-transform:uppercase; 
+
+}
+
+.wrapper-sucursales ::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;
+
+   color: #000;
+   text-transform:uppercase;  
+}
+
+.wrapper-sucursales :-ms-input-placeholder {  
+   text-align: center;
+    letter-spacing:2.9em;
+   color: #000;
+   text-transform:uppercase; 
+
+}
+
+.wrapper-sucursales .submit{
+	background-color: #FFF;
+	color:#000;
+	font-size: 27px;
+	text-transform: uppercase; 
+	padding: 17px 20px;
+	border: 2px solid #000;
+	margin: -30px auto 0px;
+	
+	transition:500ms ease;
+	margin-bottom: 5px;
+
+}
+
+.wrapper-sucursales .submit:hover{
+	background-color: #000;
+	color:#FFF;
+	font-size: 27px;
+	text-transform: uppercase; 
+	padding: 17px 20px;
+	border: 2px solid #000;
+	margin: -30px auto 0px;
+
+	transition:500ms ease;
+	position: relative;
+	margin-bottom: 5px;
+
+}
+
+.wrapper-sucursales input:hover, .wrapper-sucursales textarea:hover {
+	background-color: rgba(255, 255, 255, 0.8);
+	
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="523.585px" height="164.416px" viewBox="3 5.165 523.585 164.416" enable-background="new 3 5.165 523.585 164.416"
+	 xml:space="preserve">
+<g>
+	<g>
+		<g>
+			<path fill="#FBC74E" d="M167.603,87.372c0,45.399-36.805,82.209-82.205,82.209C39.995,169.581,3,132.773,3,87.373
+				c0-45.4,36.995-82.208,82.397-82.208C130.798,5.165,167.603,41.972,167.603,87.372z"/>
+			<polygon fill="#C1272D" points="61.728,160.216 23.431,132.395 8.801,87.372 23.431,42.352 61.728,14.525 109.063,14.525 
+				147.362,42.352 161.991,87.372 147.362,132.395 109.063,160.216 			"/>
+			<polygon fill="#FBC74E" points="59.642,149.546 23.222,113.126 23.222,61.619 59.642,25.195 111.149,25.195 147.571,61.619 
+				147.571,113.126 111.149,149.546 			"/>
+			<g>
+				<path fill="#C1272D" d="M104.177,52.262c0,10.372-8.408,18.779-18.779,18.779c-10.375,0-18.781-8.407-18.781-18.779
+					c0-10.374,8.406-18.781,18.781-18.781C95.769,33.48,104.177,41.888,104.177,52.262z"/>
+				<path fill="#C1272D" d="M104.177,122.48c0,10.373-8.408,18.781-18.779,18.781c-10.375,0-18.781-8.408-18.781-18.781
+					c0-10.371,8.406-18.778,18.781-18.778C95.769,103.702,104.177,112.109,104.177,122.48z"/>
+			</g>
+			<g>
+				<g>
+					<circle fill="#FFFFFF" cx="118.229" cy="120.371" r="9"/>
+					<circle fill="#FFFFFF" cx="52.563" cy="120.371" r="9"/>
+				</g>
+				<g>
+					<circle fill="#FFFFFF" cx="118.229" cy="54.372" r="9"/>
+					<circle fill="#FFFFFF" cx="52.563" cy="54.372" r="9"/>
+				</g>
+			</g>
+			<g>
+				<circle fill="#C1272D" cx="120.508" cy="87.372" r="18.78"/>
+				<circle fill="#C1272D" cx="50.285" cy="87.372" r="18.78"/>
+			</g>
+			<circle fill="#FFFFFF" cx="85.396" cy="87.372" r="9"/>
+		</g>
+	</g>
+	<g>
+		<rect x="140.457" y="55.985" fill="none" width="383.043" height="56.548"/>
+		<text transform="matrix(0.7448 0 0 1 169.4014 107.6445)" fill="#C1272D" font-family="'ArialMT'" font-size="94.005">Variepizzas</text>
+		
+			<text transform="matrix(0.7448 0 0 1 169.4014 107.6445)" fill="none" stroke="#C1252D" stroke-miterlimit="10" font-family="'ArialMT'" font-size="94.005">Variepizzas</text>
+		<polygon fill="#FBB03B" points="523.5,137.824 167.603,137.262 167.603,130.866 523.5,131.43 		"/>
+	</g>
+</g>
+</svg>
