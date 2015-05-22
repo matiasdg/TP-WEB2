@@ -164,7 +164,7 @@ function informarMasa(element){
 }
 
 
-function eliminarProductosCarrito(){
+function eliminarProductosCarrito(event){
 	event.preventDefault();
 	var link = $("#confirmar-productos-carrito");
 
@@ -220,8 +220,9 @@ function habilitarLink(element){
 
 
 function cambiarEstadoItem(){
-	//Obtengo la segunda clase (siempre tiene que ser item-1, item-2, item-3, item-.....)
-	var clase = $(this).attr("class").split(' ')[1];
+	//Obtengo la tercera clase (siempre tiene que ser item-1, item-2, item-3, item-.....)
+	//Tercera clase porque el div tiene: class="table-row item item-1"
+	var clase = $(this).attr("class").split(' ')[2];
 
 	
 	if(puedoEliminarProducto)
@@ -233,7 +234,6 @@ function cambiarEstadoItem(){
 			$("."+clase).addClass('item-false');
 		}else
 		{
-			console.log("segundo");
 			$("."+clase).removeClass('item-false');
 			$("."+clase).addClass('item-true');		
 		}		
@@ -241,7 +241,7 @@ function cambiarEstadoItem(){
 }
 
 
-function cancelarProductosCarrito(){
+function cancelarProductosCarrito(event){
 	event.preventDefault();
 	var link = $("#confirmar-productos-carrito");
 	puedoEliminarProducto = false;
@@ -259,8 +259,24 @@ function cancelarProductosCarrito(){
 
 
 function eliminarProducto(){
-	$(".item-false").remove();	
+	// var item = $(".item").attr("class").split(' ')[2];
+	var id;
+	var items = [];
+
+	//Lo elimino del carrito:
+	$(".item-false").each(function(){
+		
+		id = $(".item-false").attr("id");
+		items.push(id);
+	});
+
+	console.log("items: " + items);
+
+	var itemsJSON = JSON.stringify(items);
+	$.get( "inc/controller/eliminarProductoCarrito.php", { items : itemsJSON } );
+	$(".item-false").remove();
 }
+
 
 
 function calcularDemora(){

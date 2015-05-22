@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Variepizzas - Pizzas</title>
+	<title>Variepizzas - Inicio</title>
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="fonts/style.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
-
 </head>
 <body>
 	<div class="bg">
@@ -49,6 +48,7 @@
 					    echo "<p>".$_SESSION['usuario']."</p>";
 					}else{
 					    echo "<a href='#iniciar-sesion' class='fancybox'>INICIAR SESIÓN</a>";
+					    $_SESSION['visitante'] = "visitante";
 					}
 
 				?>
@@ -75,46 +75,109 @@
 
 	<div class="main">
 		<div class="wrapper">
-			<div class="fixed-menu">
-				<ul>
-					<li><a class="btn-enviarCategoria" id="predefinidas" href="#">Pizzas de la casa</a></li>
-					<li><a class="btn-enviarCategoria" id="veganas" href="#">Pizzas veganas</a></li>
-					<li><a class="btn-enviarCategoria" id="celiacas" href="#">Pizzas celiácas</a></li>
-					<li><a class="btn-enviarCategoria" id="infantiles" href="#">Pizzas infantiles</a></li>
-					<li><a class="btn-enviarCategoria" id="mixtas" href="#">Pizzas mixtas</a></li>
-					<li><a href="pizza-personalizada.html">Pizzas personalizadas</a></li>
-				</ul>
-			</div>
-			<div class="fixed-menu-small">
-				<div class="ancho">
-					<div class="title">
-						<p>M</p>
-						<p>E</p>
-						<p>N</p>
-						<p>Ú</p>
-					</div>
-					<div class="menu">
-						<ul>
-							<li><a class="btn-enviarCategoria" id="predefinidas" href="#">Pizzas de la casa</a></li>
-							<li><a class="btn-enviarCategoria" id="veganas" href="#">Pizzas veganas</a></li>
-							<li><a class="btn-enviarCategoria" id="celiacas" href="#">Pizzas celiácas</a></li>
-							<li><a class="btn-enviarCategoria" id="infantiles" href="#">Pizzas infantiles</a></li>
-							<li><a class="btn-enviarCategoria" id="mixtas" href="#">Pizzas mixtas</a></li>
-							<li><a href="pizza-personalizada.html">Pizzas personalizadas</a></li>
-						</ul>					
-					</div>
+			<div class="slider-box">
+				<div class="slider">
+					<ul>
+						<li id="slider-promocion"><img src="images/slider/imagen1.jpg" alt=""></li>
+						<li id="slider-armaPizza"><img src="images/slider/imagen2.jpg" alt=""></li>
+						<li id="slider-mixtaPizza"><img src="images/slider/imagen3.jpg" alt=""></li>
+					</ul>
+				</div>
+				<div class="slider-controles">
+					<ul>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
 				</div>
 			</div>
-			<div class="boxes">
-				<?php 
-					require ("inc/class/pizza_class.php");
+			<div class="menu">
+				<div class="item">
+					<div class="pizza">
+						<img src="images/pizzas/predefinidas/napolitana.jpg" alt="">
+						<div class="oculto">
+							<i class="icon-circle-with-plus"></i>
+						</div>
+					</div>
+					<div class="name">
+						<div class="horizontal-center">
+							<p>DE LA CASA</p>
+						</div>
+					</div>						
+				</div>
+				<div class="item">
+					<div class="pizza">
+						<img src="images/pizzas/veganas/espinaca.jpg" alt="">
+						<div class="oculto">
+							<i class="icon-circle-with-plus"></i>
+						</div>
+					</div>
+					<div class="name">
+						<div class="horizontal-center">
+							<p>VEGANAS</p>
+						</div>
+					</div>						
+				</div>
+				<div class="item">
+					<div class="pizza">
+						<img src="images/pizzas/celiacas/celiaca vegana.jpg" alt="">
+						<div class="oculto">
+							<i class="icon-circle-with-plus"></i>
+						</div>
+					</div>
+					<div class="name">
+						<div class="horizontal-center">
+							<p>CELIACAS</p>
+						</div>
+					</div>						
+				</div>
+				<div class="item">
+					<div class="pizza">
+						<img src="images/pizzas/infantiles/superman.jpg" alt="">
+						<div class="oculto">
+							<i class="icon-circle-with-plus"></i>
+						</div>
+					</div>
+					<div class="name">
+						<div class="horizontal-center">
+							<p>INFANTILES</p>
+						</div>
+					</div>						
+				</div>
+				<div class="item">
+					<div class="pizza">
+						<img src="images/pizzas/mixtas/cuatro estaciones.jpg" alt="">
+						<div class="oculto">
+							<i class="icon-circle-with-plus"></i>
+						</div>
+					</div>
+					<div class="name">
+						<div class="horizontal-center">
+							<p>MIXTAS</p>
+						</div>
+					</div>						
+				</div>
+				<div class="item">
+					<div class="pizza">
+						<img src="images/pizzas/personalizadas/pizza1.jpg" alt="">
+						<div class="oculto">
+							<i class="icon-circle-with-plus"></i>
+						</div>
+					</div>
+					<div class="name">
+						<div class="horizontal-center">
+							<p>ARMÁ A TU GUSTO</p>
+						</div>
+					</div>						
+				</div>
+			</div>
 
-					$pizza = new Pizza();
-					$pizza->mostrarTodasPizzas();
-				 ?>
+			<div class="mapa">
+				<div id="map">
+					
+				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<footer>
@@ -130,15 +193,19 @@
 				<p>Desarrollado por</p><a href="#"> MGL</a>
 			</div>
 		</div>
-	</footer>	
+	</footer>
+
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/server.js"></script>
+<script src="js/maps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>	
+
 <!-- Add mousewheel plugin (this is optional) -->
 <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 
 <!-- Add fancyBox -->
 <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>	
+<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 </body>
 </html>
