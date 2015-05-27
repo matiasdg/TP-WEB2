@@ -11,7 +11,12 @@ $(document).ready(function(){
 
 
 	//fancybox
-	$(".fancybox").fancybox({
+	$(".iniciar-sesion-box").fancybox({
+	    openEffect  : 'none',
+	    closeEffect : 'none'
+	});
+
+	$(".confirmacion").fancybox({
 	    openEffect  : 'none',
 	    closeEffect : 'none'
 	});
@@ -24,10 +29,6 @@ $(document).ready(function(){
 	//$('#confirmar-productos-carrito').click(confirmarProductosCarrito);
 
 	$(".item").click(cambiarEstadoItem);
-
-
-	//Calcular demora en Carrito->Confirmacion.
-	$("#confirmacion form input").bind("change click select", calcularDemora);
 
 
 	//Slider del Home.
@@ -279,17 +280,17 @@ function eliminarProducto(){
 
 
 
-function calcularDemora(){
+// function calcularDemora(){
 
-	//Si los inputs y selects tienen valores dentro->
+// 	//Si los inputs y selects tienen valores dentro->
 
-	//Si los valores son corrrectos, mediante validaciones ->
+// 	//Si los valores son corrrectos, mediante validaciones ->
 
-	//Guardar los valores de los inputs y selects en un array.
+// 	//Guardar los valores de los inputs y selects en un array.
 
-	//Verificar mediante google maps cuántos kilómetros hay con respecto al local
+// 	//Verificar mediante google maps cuántos kilómetros hay con respecto al local
 
-	//Calcular tiempo.
+// 	//Calcular tiempo.
 
-	//Mostrar el tiempo en pantalla
-}
+// 	//Mostrar el tiempo en pantalla
+// }

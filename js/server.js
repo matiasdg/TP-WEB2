@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	datosCorrectos = false;
+
+
 
 	$(".btn-enviarCategoria").click(enviarCategoria);
 	$("#registrarUsuario").click(registrarUsuario);
@@ -11,6 +14,12 @@ $(document).ready(function(){
 	$("input[name=tamanio-predefinida]").click(actualizarPrecioPredefinida);
 	$("#agregarCarrito-Personalizada").click(agregarCarritoPersonalizada);
 	$(".input-ing").click(actualizarIngredientesPersonalizada);
+	$("#calcularDemora").click(calcularDemora);
+	$("#encargar").click(encargarProductos);
+	$("#confirmar-pago").click(confirmarPago);
+	$("#encargar-confirmar").click(confirmarDatos);
+	$("#pago-tarjeta").click(habilitarModoPago);
+
 
 
 
@@ -19,15 +28,9 @@ $(document).ready(function(){
 
 function enviarCategoria(){
 	var categoria = $(this).attr('id');
-	var pathname = window.location.pathname;
-	var pathname_array = pathname.split("/");
-	var last = pathname_array[pathname_array.length - 1];
+
 	
-	//Si al clickear en una categoría del menú, no me encuentro en la página pizza.php, me redirijo a ella.
-	if(last != "pizzas.php")
-	{
-		document.location.href = "pizzas.php";
-	}
+
 
 	//Con el método GET le envío la variable categoría a recibirCategoria.php, y proceso el resultado en cargarCategoria
 	$.get( "inc/controller/recibirCategoria.php", { categoria: categoria}, cargarCategoria );
@@ -35,17 +38,28 @@ function enviarCategoria(){
 
 //Los datos recibidos se cargan en .boxes.
 function cargarCategoria(data){
+	var pathname = window.location.pathname;
+	var pathname_array = pathname.split("/");
+	var last = pathname_array[pathname_array.length - 1];
+
+	//Si al clickear en una categoría del menú, no me encuentro en la página pizza.php, me redirijo a ella.
+	if(last != "pizzas.php")
+	{
+		document.location.href = "pizzas.php";
+	}
+		
 	$(".boxes").html(data);
 }
 
 
-function registrarUsuario(){
+function registrarUsuario(event){
+	event.preventDefault();
 	var datos = {}; 
 
 	datos.nombre = $("#nombre").val();
 	datos.apellido = $("#apellido").val();
 	datos.usuario = $("#usuario").val();
-	datos.pass = $("#pass").val();
+	datos.pass = $("#password").val();
 	datos.repass = $("#repass").val();
 	datos.tipo_dni = $("#tipo_dni").val();
 	datos.numero_dni = $("#numero_dni").val();
@@ -60,6 +74,8 @@ function registrarUsuario(){
 
 	var datosJSON = JSON.stringify(datos);
 
+	console.log(datosJSON);
+
 	//Con el método GET le envío las a registrarUsuario.php, y proceso el resultado en verMensajeRegistroUsuario().
 	$.get( "inc/controller/registrarUsuario.php", { datos : datosJSON }, verMensajeRegistroUsuario );
 }
@@ -69,9 +85,10 @@ function verMensajeRegistroUsuario(dato){
 }
 
 function iniciarSesion(){
-	console.log("iniciar sesion");
+	
 	var mailUsuario = $("#mail-usuario").val();
 	var pass = $("#pass").val();
+	console.log(pass);
 
 
 	$.get( "inc/controller/iniciarSesion.php", { mailUsuario : mailUsuario, pass : pass }, verMensajeIniciarSesion );
@@ -239,4 +256,152 @@ function actualizarIngredientesPersonalizada(){
 	var datosJSON = JSON.stringify(datos);
 
 	$.get( "inc/controller/actualizarPrecioPersonalizada.php", { datos : datosJSON }, actualizarPrecio );
+}
+
+
+function calcularDemora(){
+	//Tomo los datos de los inputs.
+	datos = {};
+	datos.calle = $("#calle").val();
+	datos.altura = $("#altura").val();
+	datos.depto = $("#depto").val();
+
+	var datosJSON = JSON.stringify(datos);
+
+	$.get( "inc/controller/procesarDatosDomicilio.php", { datos : datosJSON }, recibirRespuestaDomicilio );
+	
+}
+
+
+ function recibirRespuestaDomicilio(dato){
+    // Convierto la cadena enviada desde PHP a un vector de objetos en JavaScript
+	 var datos = JSON.parse(dato);
+
+	
+	 if(datos['datosCorrectos'] == true)
+	 {
+	 	//Si los datos son correctos procedo a calcular la distancia.
+
+	 	//Generar una variable con el punto donde se encuentra el local.
+
+	 	//Generar una variable con el punto donde se encuentra la dirección de la entrega
+
+	 	//Googlemapear
+
+	 	//Suponiendo que el domicilio se encuentra dentro del radio, entonces:
+	 	domiciloPermitido = true;
+
+	 }else
+	 {
+	 	//Si los datos no son correctos, muestro el mensaje correspondiente.
+	 	$(".demora-info").html("<p>" + datos['mensaje'] + "</p>");
+	 }
+
+}
+
+function encargarProductos(){
+	//Tomo los datos de los inputs.
+	datos = {};
+	datos.calle = $("#calle").val();
+	datos.altura = $("#altura").val();
+	datos.depto = $("#depto").val();
+
+	var datosJSON = JSON.stringify(datos);
+
+	$.get( "inc/controller/procesarDatosDomicilio.php", { datos : datosJSON }, recibirRespuestaEncargo );
+}
+
+function recibirRespuestaEncargo(dato){
+
+    // Convierto la cadena enviada desde PHP a un vector de objetos en JavaScript
+	 var datos = JSON.parse(dato);
+
+	
+	 if(datos['datosCorrectos'] == true)
+	 {
+
+	 	//Generar una variable con el punto donde se encuentra el local.
+
+	 	//Generar una variable con el punto donde se encuentra la dirección de la entrega
+
+	 	//Googlemapear distancia entre dos puntos y calcular tiempo de llegada + tiempo de horno x cantidad de pizzas
+
+	 	//Suponiendo que el domicilio se encuentra dentro del radio, entonces:
+	 	domiciloPermitido = true;
+
+	 	//Si el domicilio es permitido, entonces puedo encargar los productos
+	 	//Se abre una caja eligiendo el modo de pago
+		 $.fancybox({
+	        href: "#metodo-pago"
+	    });
+
+	 }else
+	 {
+	 	//Si los datos no son correctos, muestro el mensaje correspondiente.
+	 	$(".demora-info").html("<p>" + datos['mensaje'] + "</p>");
+	 }	
+}
+
+
+function confirmarPago(){
+	//Si no hay una sesión iniciada, abrir la ventana de iniciar sesión
+
+	$.get( "inc/controller/verificarSesionIniciada.php", {}, recibirRespuestaVerificarSesion );
+}
+
+function recibirRespuestaVerificarSesion(dato){
+	var sesionIniciada = dato;
+
+	if(sesionIniciada == 'true')
+	{
+		//Si sesionIniciada es true, procedo a abrir otro fancybox con los datos del usuario, y el boton CONFIRMAR Y ENCARGAR
+		 $.fancybox({
+	        href: "#confirmar-datos"
+	    });
+	}else
+	{
+		//Si sesionIniciada es false, abro la ventana de Iniciar Sesión.
+		 $.fancybox({
+	        href: "#iniciar-sesion"
+	    });
+	}
+
+}
+
+
+function confirmarDatos(){
+	//Envío los datos del pago y domicilio a realizarCompra.php
+
+	var datos = {};
+
+	datos.calle = $("#calle").val();
+	datos.altura = $("#altura").val();
+	datos.depto = $("#depto").val();
+	datos.pago = $('input:radio[name="modo-pago"]:checked').val();
+	datos.numeroTarjeta = $("#tarjeta").val();
+
+	console.log(datos);
+
+	var datosJSON = JSON.stringify(datos);
+
+	$.get( "inc/controller/realizarCompra.php", {datos : datosJSON }, actualizarPagina);
+}
+
+function actualizarPagina(dato){
+	console.log(dato);
+
+}
+
+function habilitarModoPago(){
+	var tarjeta = $("#tarjeta");
+	
+	if( $(this).is(":checked") == true )
+	{
+		tarjeta.attr('disabled', false);
+
+	}else
+	{
+		tarjeta.attr('disabled', true);
+		tarjeta.val("null");
+	}	
 }

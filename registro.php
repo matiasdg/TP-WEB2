@@ -25,15 +25,15 @@
 			</div>
 			<nav>
 				<ul>
-					<li><a  href="index.html">INICIO</a></li>
-					<li class="open"><a class="selected" href="pizzas.html">PIZZAS</a>
+					<li><a  href="index.php">INICIO</a></li>
+					<li class="open"><a class="selected" href="pizzas.php">PIZZAS</a>
 						<ul class="menu-desplegable">
 							<li><a href="">Pizzas de la casa</a></li>
 							<li><a href="">Pizzas veganas</a></li>
 							<li><a href="">Pizzas celiácas</a></li>
 							<li><a href="">Pizzas infantiles</a></li>
 							<li><a href="">Pizzas mixtas</a></li>
-							<li><a href="pizza-personalizada.html">Pizzas personalizadas</a></li>
+							<li><a href="pizza-personalizada.php">Pizzas personalizadas</a></li>
 						</ul>
 					</li>
 					<li><a  href="sucursales.php">DÓNDE ESTAMOS</a></li>
@@ -46,7 +46,15 @@
 					session_start();
 
 					if (isset($_SESSION['usuario'])){
-					    echo "<p>".$_SESSION['usuario']."</p>";
+					    echo 
+					    "<ul class='usuario-menu'>
+					    	<li id='open-menu-usuario'>
+					    		<a href='#' id='usuario'>".$_SESSION['usuario']."</a>
+							    <ul class='usuario-menu-desplegable'>
+									<li><a href='#'>Cerrar sesión</a></li>
+							    </ul>					    		
+					    	</li>
+					    </ul> ";
 					}else{
 					    echo "<a href='#iniciar-sesion' class='fancybox'>INICIAR SESIÓN</a>";
 					}
@@ -54,7 +62,7 @@
 				?>
 				
 				<div class="carrito">
-					<a href="carrito.html"><i class="icon-shopping-cart"></i></a>
+					<a href="carrito.php"><i class="icon-shopping-cart"></i></a>
 				</div>
 			</div>
 		</div>
@@ -99,7 +107,7 @@
 					<div class="form-box">
 						<div class="form-left">
 							<label for="contraseña">Contraseña</label>
-							<input type="password" id="pass">
+							<input type="password" id="password">
 						</div>
 												
 						<div class="form-left">
@@ -113,9 +121,9 @@
 							<div class="form-left-20">
 								<label for="tipo">Tipo DNI</label>
 								<select name="tipo_dni" id="tipo_dni">
-									<option value=""></option>
-									<option value=""></option>
-									<option value=""></option>
+									<option value="DNI">DNI</option>
+									<option value="CI">CI</option>
+									<option value="LC">LC</option>
 								</select>
 							</div>
 							
@@ -154,29 +162,29 @@
 						<div class="form-left">
 							<label for="provincia">Provincia</label>
 							<select name="provincia" id="provincia">
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
-								<option value=""></option>
+								<option value="buenos aires">Buenos Aires</option>
+								<option value="catamarca">Catamarca</option>
+								<option value="chaco">Chaco</option>
+								<option value="chubut">Chubut</option>
+								<option value="cordoba">Córdoba</option>
+								<option value="corrientes">Corrientes</option>
+								<option value="entre rios">Entre Ríos</option>
+								<option value="formosa">Formosa</option>
+								<option value="jujuy">Jujuy</option>
+								<option value="la pampa">La Pampa</option>
+								<option value="la rioja">La Rioja</option>
+								<option value="mendoza">Mendoza</option>
+								<option value="misiones">Misiones</option>
+								<option value="neuquen">Neuquén</option>
+								<option value="rio negro">Río Negro</option>
+								<option value="salta">Salta</option>
+								<option value="san juan">San Juan</option>
+								<option value="san luis">San Luis</option>
+								<option value="santa cruz">Santa Cruz</option>
+								<option value="santa fe">Santa Fé</option>
+								<option value="santiago del estero">Santiago del Estero</option>
+								<option value="tierra del fuego">Tierra del Fuego</option>
+								<option value="tucuman">Tucumán</option>
 							</select>
 						</div>
 					</div>
@@ -201,7 +209,7 @@
 					</div>
 
 					<div class="btn-box">
-						<a href="" class="btn-form " id="registrarUsuario">REGISTRARSE</a>
+						<a href="#" class="btn-form " id="registrarUsuario">REGISTRARSE</a>
 					</div>
 				</form>
 			</div>

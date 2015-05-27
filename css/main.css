@@ -167,8 +167,32 @@ header i{
 
 header .carrito a{
 	padding: 0;
-	position: relative;
 	top: 3px;
+}
+
+header .usuario-menu{
+	display: inline-block;
+	list-style: none;
+}
+
+header .usuario-menu-desplegable{
+	display:none;
+	list-style: none;
+	position:absolute;
+	padding:10px;
+	background-color: rgba(000, 000, 000, 0.8);
+	color:#fff;
+	z-index: 999;
+	border-bottom: 1px solid rgba(38, 166, 91, 0.7);
+	border-left: 1px solid rgba(38, 166, 91, 0.7);
+	border-right: 1px solid rgba(38, 166, 91, 0.7);
+	margin-left: -20px;
+}
+
+header #open-menu-usuario:hover .usuario-menu-desplegable{
+	display:block;
+
+
 }
 
 
@@ -683,25 +707,25 @@ footer .desarrollo a{
 	display:none;
 }
 
-#confirmacion{
+#confirmacion, #metodo-pago, #confirmar-datos{
 	display:none;
 	width: auto;
 	text-align: center;
 }
 
 
-#confirmacion .title{
+#confirmacion .title, #metodo-pago .title, #confirmar-datos .title{
 	width: 100%;
 }
 
-#confirmacion .title p{
+#confirmacion .title p, #metodo-pago .title p, #confirmar-datos .title p{
 	font-weight: bold;
 	color:#fff;
 	padding: 10px;
 	background-color: tomato;
 }
 
-#confirmacion form{
+#confirmacion form, #metodo-pago form, #confirmar-datos form{
 	padding:10px;
 }
 
@@ -710,12 +734,12 @@ footer .desarrollo a{
 }
 
 
-#confirmacion form .tabla{
+#confirmacion form .tabla, #metodo-pago #confirmacion form .tabla{
 	overflow: hidden;
 
 }
 
-#confirmacion form .tabla .col-50 {
+#confirmacion form .tabla .col-50, #metodo-pago form .tabla .col-50 {
 	display: block;
 }
 
@@ -725,7 +749,7 @@ footer .desarrollo a{
 	display:block;
 }
 
-#confirmacion form input{
+#confirmacion form input, #metodo-pago form input{
 	margin:0 auto;
 	height: 30px;
 	display:block;
@@ -740,8 +764,9 @@ footer .desarrollo a{
 
 }
 
-#confirmacion form a{
+#confirmacion form a, #metodo-pago form a{
 	margin-top: 20px;
+	width: 90%;
 }
 
 #confirmacion form .demora-info{
@@ -752,6 +777,31 @@ footer .desarrollo a{
 
 #confirmacion form .demora-info p span{}
 
+.btn-info{
+	background-color: rgba(255 ,99 , 71 , 0.7);
+	color:#fff;
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+
+}
+
+.btn-info:hover{
+	background-color: rgba(255 ,99 , 71 , 1);
+}
+
+#metodo-pago input[type="radio"]{
+	display: inline-block;
+	height: 0;
+	margin-top: 20px;
+}
+
+#metodo-pago form label {
+	display:inline-block;
+	margin-top: 20px;
+}
+
+#confirmar-datos{}
 
 /*############################### ESTILOS DE pizzasv2-menuDesplegable.HTML ######################*/
 
@@ -1331,3 +1381,5 @@ header nav > ul > li > a:hover, header .user-section a:hover{
 	background-color: rgba(255, 255, 255, 0.8);
 	
 }
+
+

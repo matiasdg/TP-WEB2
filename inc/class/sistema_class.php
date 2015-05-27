@@ -24,7 +24,7 @@ class Sistema extends Modelo {
     	$tipo_dni = $datos["tipo_dni"];
     	$numero_dni = $datos["numero_dni"];
     	$calle = $datos["calle"];
-    	$altura = $datos["calle"];
+    	$altura = $datos["altura"];
     	$depto = $datos["depto"];
     	$partido = $datos["partido"];
     	$provincia = $datos["provincia"];
@@ -99,7 +99,7 @@ class Sistema extends Modelo {
            $mensajeErrores["calle"] = "La calle ingresada no es válida"; 
         }
 
-        if(preg_match("/^([1-9]([0-9]{0,3})|[2][0-7][0-2][0-9][0-9]|27300)$/",$altura))
+        if(preg_match("/[0-9]+/",$altura))
         {
             $mensajeErrores["altura"] = 0;
         }else
@@ -125,10 +125,10 @@ class Sistema extends Modelo {
 
         if(preg_match("//",$provincia))
         {
-            $mensajeErrores["partido"] = 0;
+            $mensajeErrores["provincia"] = 0;
         }else
         {
-           $mensajeErrores["partido"] = "Por favor seleccione una provincia"; 
+           $mensajeErrores["provincia"] = "Por favor seleccione una provincia"; 
         }
 
         if(preg_match("/[0-9]+/",$telefono))
@@ -178,7 +178,7 @@ class Sistema extends Modelo {
         {
             //Verifico que el mail y nombre de usuario no estén en uso
 
-            $consultaUsuario = "SELECT usuario FROM USUARIOS WHERE usuario = '$usuario' ";
+            $consultaUsuario = "SELECT nombre_usuario FROM USUARIOS WHERE nombre_usuario = '$usuario' ";
 
             $resultado = $this->db->query($consultaUsuario) or die("Error en el SELECT USUARIO: ".mysqli_error($this->db));
 
@@ -211,9 +211,17 @@ class Sistema extends Modelo {
                 echo $mensajeDeError;
             }else
             {
-                //Ingreso los datos en la bdd.
+                //Procedo a insertar los datos a la bdd.
 
-                $consulta = "INSERT INTO USUARIOS VALUES ";
+                //Genero el id del usuario con md5.
+                $id_usuario = md5($usuario);
+
+                //Encripto la contraseña con md5
+                $passEncript = md5($pass);
+
+
+                $consulta = "INSERT INTO USUARIOS VALUES 
+                ('$id_usuario',$numero_dni,'$tipo_dni','cliente','$nombre','$apellido','$usuario','$passEncript','$calle',$altura,'$depto','$partido','$provincia','$mail',$telefono,$celular)";
 
                 $this->db->query($consulta) or die('Error en el INSERT: ' . mysqli_error($this->db));
 
@@ -234,7 +242,8 @@ class Sistema extends Modelo {
             //Es mail
             if(preg_match("/[\w]{6,}/",$pass))
             {
-                $consulta = "SELECT usuario FROM USUARIOS where mail = '$mailUsuario' and pass = '$pass'";
+                $passEncript = md5($pass);
+                $consulta = "SELECT nombre_usuario FROM USUARIOS where mail = '$mailUsuario' and pass = '$passEncript'";
                 $resultado = $this->db->query($consulta) or die( "Error: ".mysqli_error($this->db) );
 
                 if($resultado->num_rows === 1)
@@ -253,8 +262,9 @@ class Sistema extends Modelo {
                 //Es usuario
                 if(preg_match("/[\w]{6,}/",$pass))
                 {
-                    $consulta = "SELECT usuario FROM USUARIOS where usuario = '$mailUsuario' and pass = '$pass'";
-                    $resultado = $this->db->query($consulta) or die( "Error: ".mysqli_error($this->db) );
+                    $passEncript = md5($pass);
+                    $consulta = "SELECT nombre_usuario FROM USUARIOS where nombre_usuario = '$mailUsuario' and pass = '$passEncript'";
+                    $resultado = $this->db->query($consulta) or die( "Error en el SELECT: ".mysqli_error($this->db) );
 
                     if($resultado->num_rows === 1)
                     {
@@ -277,10 +287,133 @@ class Sistema extends Modelo {
             session_start();
 
             $_SESSION['usuario'] = $mailUsuario;
+
+            echo "Bienvenido ".$_SESSION['usuario'];
         }else
         {
             echo "Los datos ingresados no son correctos.<br/>";
         }
+
+    }
+
+
+    public function procesarDatosDomicilio($datos){
+
+        $respuesta = array();
+        $calle = $datos['calle'];
+        $altura = $datos['altura'];
+        $depto = $datos['depto'];
+        
+        if(preg_match("/^[0-9a-zA-ZñÑáéíóÁÉÍÓÚ ]*/",$calle))
+        {
+            $mensajeErrores["calle"] = 0;
+        }else
+        {
+           $mensajeErrores["calle"] = "La calle ingresada no es válida"; 
+        }
+
+        if(preg_match("/[0-9]+/",$altura))
+        {
+            $mensajeErrores["altura"] = 0;
+        }else
+        {
+           $mensajeErrores["altura"] = "La altura ingresada no es válida"; 
+        }
+
+        if(preg_match("/[0-9]+/",$depto))
+        {
+            $mensajeErrores["depto"] = 0;
+        }else
+        {
+           $mensajeErrores["depto"] = "El número de departamento no es válido"; 
+        } 
+
+        //Verifico si hay errores.
+
+        $hayError = false;
+        $mensajeDeError = "";
+        foreach($mensajeErrores as $error){
+
+            if( $error !== 0 )
+            {
+                $hayError = true;
+                $mensajeDeError = $mensajeDeError . $error."<br>";
+            }
+        }
+
+        if($hayError)
+        {
+            //Guardo los mensajes de error en la variable respuesta
+            $respuesta['mensaje'] = $mensajeDeError;
+            $respuesta['datosCorrectos'] = false;
+
+            echo json_encode($respuesta); 
+
+        }else
+        {
+            //Si no hay error, devuelvo los datos del domicilio y digo que los datos son correctos:
+            $respuesta['datosCorrectos'] =  true;
+            $respuesta['datosDomicilio'] = array('calle'=> $calle, 'altura'=> $altura, 'depto'=> $depto);
+
+            //Envio la respuesta con los datos a JS:
+            //echo json_encode($repuesta);
+            echo json_encode($respuesta);
+
+        }
+
+    }
+
+
+    public function verificarSesionIniciada(){
+        $sesionIniciada;
+        
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if(isset($_SESSION['usuario'])){
+            //Si existe una sesión sesionInicada será true.
+            $sesionIniciada = true;
+        }else
+        {
+            $sesionIniciada = false;
+        }
+
+        echo json_encode($sesionIniciada);
+    }
+
+
+    public function obtenerIdUsuario($usuario){
+
+        $consulta = "select id_usuario from USUARIOS where nombre_usuario = '$usuario'";
+
+        $registros = $this->db->query($consulta) or die("Error en la consulta obtenerIdUsuario: " . mysqli_error($this->db));
+
+        while($objeto = $registros->fetch_object()){
+            $id_usuario = $objeto->id_usuario;
+        }
+
+        return $id_usuario;
+    }
+
+    public function obtenerIdUltimoPedido(){
+
+        $consulta = "SELECT MAX(id_pedido) FROM PEDIDOS";
+
+        $registros = $this->db->query($consulta) or die( "Error en la consulta obtenerIdUltimoPedido: ".mysqli_error($this->db) );
+    
+        while($objeto = $registro->fetch_object()){
+            $id_pedido = $objeto->id_pedido;
+        }
+
+        return $id_pedido;
+    }
+
+    public function generarFactura($datos){
+
+    }
+
+    public function generarComprobante($datos){
 
     }
 }

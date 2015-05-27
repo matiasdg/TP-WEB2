@@ -45,8 +45,15 @@
 					session_start();
 
 					if (isset($_SESSION['usuario'])){
-					    echo "<p>".$_SESSION['usuario']."</p>";
-					}else{
+					    echo 
+					    "<ul class='usuario-menu'>
+					    	<li id='open-menu-usuario'>
+					    		<a href='#' id='usuario'>".$_SESSION['usuario']."</a>
+							    <ul class='usuario-menu-desplegable'>
+									<li><a href='#'>Cerrar sesión</a></li>
+							    </ul>					    		
+					    	</li>
+					    </ul> ";					}else{
 					    echo "<a href='#iniciar-sesion' class='fancybox'>INICIAR SESIÓN</a>";
 					}
 

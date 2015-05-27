@@ -42,10 +42,21 @@
 
 			<div class="user-section">
 				<?php
+				if(!isset($_SESSION)){
+				    session_start();
+				}
 					if (isset($_SESSION['usuario'])){
-					    echo "<p>".$_SESSION['usuario']."</p>";
+					    echo 
+					    "<ul class='usuario-menu'>
+					    	<li id='open-menu-usuario'>
+					    		<a href='#' id='usuario'>".$_SESSION['usuario']."</a>
+							    <ul class='usuario-menu-desplegable'>
+									<li><a href='#'>Cerrar sesión</a></li>
+							    </ul>					    		
+					    	</li>
+					    </ul> ";
 					}else{
-					    echo "<a href='#iniciar-sesion' class='fancybox'>INICIAR SESIÓN</a>";
+					    echo "<a href='#iniciar-sesion' class='iniciar-sesion-box'>INICIAR SESIÓN</a>";
 					}
 
 				?>				
@@ -81,7 +92,7 @@
 				<div class="controles">
 					<a class='btn btn-warning' href='#' id='cancelar-productos-carrito'>Cancelar</a>
 					<a class="btn btn-warning" href="#" id="eliminar-productos-carrito">Eliminar Productos</a>
-					<a class="btn btn-success fancybox" href="#confirmacion" id="confirmar-productos-carrito">Confirmar Productos</a>
+					<a class="btn btn-success confirmacion" href="#confirmacion" id="confirmar-productos-carrito">Confirmar Productos</a>
 				</div>
 			</div>
 
@@ -93,33 +104,138 @@
 					<p>Indique dónde desea recibir su compra</p>
 
 					<label for="calle">Calle</label>
-					<input type="text">
+					<input type="text" id="calle">
 
 					<div class="tabla">
 						<div class"col-50">
-							<label for="">Numero</label>
-							<input type="text">
+							<label for="altura">Altura</label>
+							<input type="text" id="altura">
 						</div>
 						<div class="col-50">
-							<label for="">Depto</label>
-							<input type="text">
+							<label for="depto">Departamento</label>
+							<input type="text" id="depto">
 						</div>
 					</div>
 
-					<label for="">Localidad</label>
-					<input type="text">
-					<label for="">Partido</label>
-					<select name="partido" id="">
-						<option value="">Seleccione</option>
-						<option value=""></option>
-						<option value=""></option>
-					</select>
-
 					<div class="demora-info">
-						<p>El tiempo mínimo de demora es <span>14hs</span></p>
+						<a href="#" class="btn btn-info" id="calcularDemora">Calcular tiempo de demora</a>
 					</div>
 
-					<a href="#" class="btn btn-success btn-submit">Confirmar y Encargar</a>
+					<a href="#metodo-pago" class="btn btn-success btn-submit" id="encargar">Siguiente paso</a>
+
+				</form>
+			</div>
+
+
+			<div id="metodo-pago">
+				<div class="title">
+					<p>CONFIRMAR COMPRA</p>
+				</div>
+				<form action="">
+					<p>Indique el modo de pago</p>
+
+					<div class="tabla">
+						<div class"col-50">
+							<input type="radio" name="modo-pago" id="pago-tarjeta" value="radio-tarjeta" />
+							<label for="tarjeta">Tarjeta de crédito</label>
+							<input type="text" id="tarjeta" disabled>
+						</div>
+						<div class="col-50">
+							<input type="radio" name="modo-pago" value="input-efectivo" checked/>
+							<label for="efectivo">Efectivo</label>
+						</div>
+					</div>
+
+					<a href="#" class="btn btn-success btn-submit" id="confirmar-pago">Siguiente paso</a>
+
+				</form>
+			</div>
+
+
+			<div id="confirmar-datos">
+				<div class="title">
+					<p>CONFIRMAR COMPRA</p>
+				</div>
+				<form action="">
+					<div class="confirmar-info">
+						<p>Por favor, lea aténtamente si los datos son correctos antes de confirmar la compra.</p>
+						<p>Al confirmar la compra obtendrá un comprobante con los datos correspondientes.</p>
+					</div>
+
+					<div class="tabla">
+						<div class="confirmar-title-seccion">
+							<p>Datos Personales</p>
+						</div>
+
+						<div class"col-50">
+							<label for="tarjeta">Nombre</label>
+							<p>Juan</p>
+						</div>
+						<div class="col-50">
+							<label for="efectivo">Apellido</label>
+							<p>Pérez</p>
+						</div>
+						<label for="usuario">Usuario</label>
+						<p>JuanP</p>
+						<label for="tipo-dni">Tipo de documento</label>
+						<p>DNI</p>
+						<label for="dni">Número de documento</label>
+						<p>20987237</p>
+						<label for="calle">Calle</label>
+						<p>Calle Falsa</p>
+						<label for="altura">Altura</label>
+						<p>123</p>
+						<label for="departamento">Departamento</label>
+						<p>9</p>
+						<label for="partido">Partido</label>
+						<p>Moron</p>
+						<label for="provincia">Provincia</label>
+						<p>Buenos Aires</p>
+						<label for="telefono">Teléfono</label>
+						<p>47783219</p>
+						<label for="celular">Teléfono personal</label>
+						<p>15783982</p>
+						<label for="mail">Email</label>
+						<p>juanperez@it</p>
+						
+						<!-- Datos del domicilio de la entrega -->
+						<div class="domicilio-confirmar">
+							<div class="confirmar-title-seccion">
+								<p>Domicilio de entrega</p>
+							</div>
+
+							<label for="calle">Calle</label>
+							<p>Calle Falsa</p>
+							<label for="altura">Altura</label>
+							<p>1213</p>
+							<label for="departamento">Departamento</label>
+							<p>23</p>
+						</div>
+
+						<!-- Datos del pedido -->
+						<div class="productos-confirmar">
+							<div class="confirmar-title-seccion">
+								<p>Datos del pedido</p>
+							</div>
+
+							<label for="producto">Producto</label>
+							<p>Pizza Napolitana</p>
+							<label for="detalles">Detalles</label>
+							<p>Queso, queso, queso, queso, queso</p>
+							<label for="tamanio">Tamaño</label>
+							<p>Mediana</p>
+							<label for="precio">Precio</label>
+							<p>$56</p>
+
+							<label for="precio-total">Precio Total</label>
+							<p>$56</p>
+
+
+						</div>
+
+					</div>
+
+					<a href="#" class="btn btn-success btn-submit" id="encargar">Confirmar compra</a>
 
 				</form>
 			</div>
