@@ -22,7 +22,7 @@ body{
 	margin:0 auto;
 	width:90%;
 	max-width: 1500px;
-	min-width: 400px;
+	min-width: 200px;
 	overflow:hidden;
 }
 
@@ -170,6 +170,10 @@ header .carrito a{
 	top: 3px;
 }
 
+header #usuario{
+	text-transform: uppercase;
+}
+
 header .usuario-menu{
 	display: inline-block;
 	list-style: none;
@@ -218,10 +222,6 @@ footer a, footer p, footer i {
 	color:rgb(238, 238, 238);
 }
 
-footer > div > div{
-	float:left;
-	width: 33.33%;
-}
 
 footer .social{
 	text-align: left;
@@ -256,14 +256,44 @@ footer .desarrollo a{
 	color:rgb(238, 238, 238);
 }
 
+footer > div > div{
+	width: 33%;
+	float:left;
+}
+
+
+@media screen and (max-width: 420px){
+
+	footer > div > div{
+		width: 100%;
+		clear: both;
+		text-align: center;
+	}
+
+	footer .desarrollo{
+		text-align: center;
+	}
+
+	footer .social{
+		text-align: center;
+	}
+}
 
 /*############################### FIN ESTILOS DEL FOOTER ######################*/
 /*############################### ESTILOS DE PIZZA.HTML ######################*/
 
+.boxes{
+	float:left;
+	display:flex;
+	flex-flow:row wrap;
+	width: 100%;
+}
+
 .box{
-	display: inline-block;
+	flex: 1 1 30%;
 	width: 30%;
-	min-width: 250px;
+	min-width: 200px;
+	max-width: 280px;
 	height: 300px;
 	padding:5px;
 	margin:10px;
@@ -272,6 +302,17 @@ footer .desarrollo a{
 	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
 	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
 
+}
+
+@media screen and (max-width: 530px){
+	.box{
+		width: 100%;
+	}
+
+	.boxes{
+		flex-flow: column wrap;
+		align-items: center;
+	}
 }
 
 .pizza{
@@ -474,11 +515,15 @@ footer .desarrollo a{
 }
 
 
+
 .pizza-predefinida .flex-item{
 	flex: 1 0 auto;
 	width: 50%;
 	padding:10px;
 }
+
+
+
 
 .pizza-predefinida .flex-item:last-of-type{
 	display: flex;
@@ -494,6 +539,7 @@ footer .desarrollo a{
 	height: 300px;
 
 }
+
 
 .pizza-predefinida .pizza-foto img{
 	height: 100%;
@@ -566,6 +612,41 @@ footer .desarrollo a{
 	float:right;
 }
 
+@media screen and (max-width: 530px){
+	.pizza-predefinida{
+		flex-flow: column wrap;
+	}
+
+	.pizza-predefinida .flex-item{
+		width: 100%;
+		align-self: center;
+		text-align: center;
+	}
+
+	.order-2(1){
+		order:2;
+	}
+
+	.foto-per{
+		display:none;
+	}
+
+	.precio-btn a{
+		float:none;
+	}
+
+	.pizza-predefinida .precio-btn .precio{
+		float:none;
+	}
+}
+
+@media screen and (max-width: 290px){
+	.pizza-predefinida .flex-item ul{
+		flex-flow:column wrap;
+	}
+
+}
+
 
 /*############################### ESTILOS DE CARRITO.HTML ######################*/
 
@@ -584,6 +665,7 @@ footer .desarrollo a{
 	width: 100%;
 
 }
+
 
 .main .carrito .productos .table-row{
 	display:table-row;
@@ -792,16 +874,53 @@ footer .desarrollo a{
 
 #metodo-pago input[type="radio"]{
 	display: inline-block;
-	height: 0;
 	margin-top: 20px;
+	position: relative;
+  	top: 10px;
 }
 
 #metodo-pago form label {
 	display:inline-block;
-	margin-top: 20px;
 }
 
 #confirmar-datos{}
+
+.title-movil{
+	display:none;
+	border-bottom:1px solid rgba(255, 255, 255, 0.5);
+}
+
+.title-movil p{
+	padding: 5px;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 425px){
+
+	.title-movil{
+		display:block;
+	}
+
+	.main .carrito .productos{
+
+	}
+
+	.table-row:nth-of-type(1) > .table-cell{
+		display:none;
+	}
+
+	.table-cell{
+		display:block;
+		border-top:none;
+		width:100%;
+	}
+
+	.table-cell:nth-of-type(2){
+		width: 100%;
+	}
+
+
+}
 
 /*############################### ESTILOS DE pizzasv2-menuDesplegable.HTML ######################*/
 
@@ -840,9 +959,7 @@ header nav > ul > li > a:hover, header .user-section a:hover{
 	font-weight: bold;
 }
 
-.boxes{
-	float:left;
-}
+
 
 
 
@@ -1001,7 +1118,6 @@ header nav > ul > li > a:hover, header .user-section a:hover{
 
 #iniciar-sesion{
 	display:none;
-	width: 300px;
 	text-align: center;
 
 }
@@ -1156,11 +1272,13 @@ header nav > ul > li > a:hover, header .user-section a:hover{
 	width: 100%;
 }
 
+
 .wrapper .menu .item{
 	flex: 1 1 30%;
 
 	width: 30%;
-	min-width: 250px;
+	min-width: 220px;
+	max-width: 300px;
 	height: 300px;
 	padding:5px;
 	margin:10px;
@@ -1214,11 +1332,22 @@ header nav > ul > li > a:hover, header .user-section a:hover{
 	cursor:pointer;
 }
 
+@media screen and (max-width: 620px){
+	.wrapper .menu{
+		flex-flow:column wrap;
+		align-items:center;
+	}
+
+	.wrapper .menu .item{
+		width: 100%;
+	}
+}
+
 
 /*ESTILOS DEL MAPA DE LA HOME*/
 
 .mapa{
-	margin:10px;
+	margin:10px auto;
 	background-color: rgba(0, 0, 0, 0.7);
 	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
 	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
@@ -1284,7 +1413,7 @@ header nav > ul > li > a:hover, header .user-section a:hover{
 	margin-top: 1%;
 	margin-right: 1%;
 	width: auto;
-	height: 500px;
+	height: 90vh;
 	margin-bottom: 1%;
 }
 

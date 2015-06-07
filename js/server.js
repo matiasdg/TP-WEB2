@@ -28,16 +28,6 @@ $(document).ready(function(){
 
 function enviarCategoria(){
 	var categoria = $(this).attr('id');
-
-	
-
-
-	//Con el método GET le envío la variable categoría a recibirCategoria.php, y proceso el resultado en cargarCategoria
-	$.get( "inc/controller/recibirCategoria.php", { categoria: categoria}, cargarCategoria );
-}
-
-//Los datos recibidos se cargan en .boxes.
-function cargarCategoria(data){
 	var pathname = window.location.pathname;
 	var pathname_array = pathname.split("/");
 	var last = pathname_array[pathname_array.length - 1];
@@ -47,6 +37,16 @@ function cargarCategoria(data){
 	{
 		document.location.href = "pizzas.php";
 	}
+	
+
+
+	//Con el método GET le envío la variable categoría a recibirCategoria.php, y proceso el resultado en cargarCategoria
+	$.get( "inc/controller/recibirCategoria.php", { categoria: categoria}, cargarCategoria );
+}
+
+//Los datos recibidos se cargan en .boxes.
+function cargarCategoria(data){
+
 		
 	$(".boxes").html(data);
 }
@@ -380,16 +380,15 @@ function confirmarDatos(){
 	datos.pago = $('input:radio[name="modo-pago"]:checked').val();
 	datos.numeroTarjeta = $("#tarjeta").val();
 
-	console.log(datos);
-
 	var datosJSON = JSON.stringify(datos);
 
 	$.get( "inc/controller/realizarCompra.php", {datos : datosJSON }, actualizarPagina);
 }
 
 function actualizarPagina(dato){
-	console.log(dato);
-
+	 $.fancybox({
+        href: "#mensaje-compra"
+    });
 }
 
 function habilitarModoPago(){

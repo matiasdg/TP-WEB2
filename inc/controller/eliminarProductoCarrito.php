@@ -6,5 +6,6 @@ $items = json_decode($json, true);
 
 $carrito = new Carrito();
 $carrito->eliminar($items);
+$carrito->actualizarPrecio();
 
  ?>

@@ -157,7 +157,7 @@ class Pizza extends Modelo {
 				<div class='flex-item'>
 					<div class='precio-btn'>
 						<div class='precio'>
-							<p>Precio: <span>$".$fila->precio."</span></p>
+							<p>Precio: $<span>".$fila->precio."</span></p>
 						</div>";
 						
 		}	
@@ -235,10 +235,10 @@ class Pizza extends Modelo {
     	if($tamanio == "mediana")
     	{
     		$precioFinalRedondo = $precioFinalRedondo / 2;
-    		echo "$".$precioFinalRedondo;
+    		echo $precioFinalRedondo;
     	}else
     	{
-    		echo "$".$precioFinalRedondo;
+    		echo $precioFinalRedondo;
     	}
 
 	}
@@ -259,10 +259,10 @@ class Pizza extends Modelo {
     	if($tamanio == "mediana")
     	{
     		$precio = $precio / 2;
-    		echo "$".$precio;
+    		echo $precio;
     	}else
     	{
-    		echo "$".$precio;
+    		echo $precio;
     	}
 
 	}
@@ -291,10 +291,10 @@ class Pizza extends Modelo {
     	if($datos['tamanio'] == "mediana")
     	{
     		$subTotal = $subTotal / 2;
-    		echo "$".$subTotal;
+    		echo $subTotal;
     	}else
     	{
-    		echo "$".$subTotal;
+    		echo $subTotal;
     	}
 
 	}

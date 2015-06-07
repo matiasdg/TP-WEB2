@@ -178,7 +178,7 @@ class Sistema extends Modelo {
         {
             //Verifico que el mail y nombre de usuario no estén en uso
 
-            $consultaUsuario = "SELECT nombre_usuario FROM USUARIOS WHERE nombre_usuario = '$usuario' ";
+            $consultaUsuario = "SELECT nombre_usuario FROM USUARIO WHERE nombre_usuario = '$usuario' ";
 
             $resultado = $this->db->query($consultaUsuario) or die("Error en el SELECT USUARIO: ".mysqli_error($this->db));
 
@@ -191,7 +191,7 @@ class Sistema extends Modelo {
                 $mensajeDeError += "El usuario ingresado ya existe<br>";
             }
 
-            $consultaMail = "SELECT mail FROM USUARIOS where mail = '$mail' ";
+            $consultaMail = "SELECT mail FROM USUARIO where mail = '$mail' ";
 
             $resultado = $this->db->query($consultaMail) or die("Error en el SELECT mail: ".mysqli_error($this->db));
 
@@ -220,8 +220,8 @@ class Sistema extends Modelo {
                 $passEncript = md5($pass);
 
 
-                $consulta = "INSERT INTO USUARIOS VALUES 
-                ('$id_usuario',$numero_dni,'$tipo_dni','cliente','$nombre','$apellido','$usuario','$passEncript','$calle',$altura,'$depto','$partido','$provincia','$mail',$telefono,$celular)";
+                $consulta = "INSERT INTO USUARIO(id_usuario, numero_dni, tipo_dni, tipo_usuario, nombre, apellido, nombre_usuario, pass, calle, altura, depto, partido, provincia, mail, telefono, celular) 
+                VALUES ('$id_usuario',$numero_dni,'$tipo_dni','cliente','$nombre','$apellido','$usuario','$passEncript','$calle',$altura,'$depto','$partido','$provincia','$mail',$telefono,$celular)";
 
                 $this->db->query($consulta) or die('Error en el INSERT: ' . mysqli_error($this->db));
 
@@ -243,7 +243,7 @@ class Sistema extends Modelo {
             if(preg_match("/[\w]{6,}/",$pass))
             {
                 $passEncript = md5($pass);
-                $consulta = "SELECT nombre_usuario FROM USUARIOS where mail = '$mailUsuario' and pass = '$passEncript'";
+                $consulta = "SELECT nombre_usuario FROM USUARIO where mail = '$mailUsuario' and pass = '$passEncript'";
                 $resultado = $this->db->query($consulta) or die( "Error: ".mysqli_error($this->db) );
 
                 if($resultado->num_rows === 1)
@@ -263,13 +263,17 @@ class Sistema extends Modelo {
                 if(preg_match("/[\w]{6,}/",$pass))
                 {
                     $passEncript = md5($pass);
-                    $consulta = "SELECT nombre_usuario FROM USUARIOS where nombre_usuario = '$mailUsuario' and pass = '$passEncript'";
+                    $consulta = "SELECT nombre_usuario FROM USUARIO where nombre_usuario = '$mailUsuario' and pass = '$passEncript'";
                     $resultado = $this->db->query($consulta) or die( "Error en el SELECT: ".mysqli_error($this->db) );
 
                     if($resultado->num_rows === 1)
                     {
                         $puedoIniciarSesion = true;
                     };
+
+                    while ($obj = $resultado->fetch_object()) {
+                        $usuario = $obj->nombre_usuario;
+                    }
 
                 }else
                 {
@@ -286,7 +290,7 @@ class Sistema extends Modelo {
         {
             session_start();
 
-            $_SESSION['usuario'] = $mailUsuario;
+            $_SESSION['usuario'] = $usuario;
 
             echo "Bienvenido ".$_SESSION['usuario'];
         }else
@@ -385,7 +389,7 @@ class Sistema extends Modelo {
 
     public function obtenerIdUsuario($usuario){
 
-        $consulta = "select id_usuario from USUARIOS where nombre_usuario = '$usuario'";
+        $consulta = "select id_usuario from USUARIO where nombre_usuario = '$usuario'";
 
         $registros = $this->db->query($consulta) or die("Error en la consulta obtenerIdUsuario: " . mysqli_error($this->db));
 
@@ -397,13 +401,14 @@ class Sistema extends Modelo {
     }
 
     public function obtenerIdUltimoPedido(){
+        $id_pedido = 0;
 
-        $consulta = "SELECT MAX(id_pedido) FROM PEDIDOS";
+        $consulta = "SELECT MAX(id_pedido) as pedido FROM PEDIDOS";
 
         $registros = $this->db->query($consulta) or die( "Error en la consulta obtenerIdUltimoPedido: ".mysqli_error($this->db) );
     
-        while($objeto = $registro->fetch_object()){
-            $id_pedido = $objeto->id_pedido;
+        while($objeto = $registros->fetch_object()){
+            $id_pedido = $objeto->pedido;
         }
 
         return $id_pedido;
@@ -416,6 +421,52 @@ class Sistema extends Modelo {
     public function generarComprobante($datos){
 
     }
+
+    public function enviarMail($filename, $path, $mailto, $from_mail, $from_name, $replyto, $subject, $message) {
+        $file = $path.$filename;
+        $file_size = filesize($file);
+        $handle = fopen($file, "r");
+        $content = fread($handle, $file_size);
+        fclose($handle);
+        $content = chunk_split(base64_encode($content));
+        $uid = md5(uniqid(time()));
+        $name = basename($file);
+        $header = "From: ".$from_name." <".$from_mail.">\r\n";
+        $header .= "Reply-To: ".$replyto."\r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: multipart/mixed; boundary=\"".$uid."\"\r\n\r\n";
+        $header .= "This is a multi-part message in MIME format.\r\n";
+        $header .= "--".$uid."\r\n";
+        $header .= "Content-type:text/plain; charset=iso-8859-1\r\n";
+        $header .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+        $header .= $message."\r\n\r\n";
+        $header .= "--".$uid."\r\n";
+        $header .= "Content-Type: application/octet-stream; name=\"".$filename."\"\r\n"; // use different content types here
+        $header .= "Content-Transfer-Encoding: base64\r\n";
+        $header .= "Content-Disposition: attachment; filename=\"".$filename."\"\r\n\r\n";
+        $header .= $content."\r\n\r\n";
+        $header .= "--".$uid."--";
+
+        if (mail($mailto, $subject, "", $header)) {
+            echo "mail send ... OK"; // or use booleans here
+        } else {
+            echo "mail send ... ERROR!";
+        }
+    }
+
+    public function obtenerMailUsuario(){
+        $usuario = $_SESSION['usuario'];
+
+        $consulta = "SELECT mail FROM USUARIO where nombre_usuario = '$usuario'";
+
+        $resultado = $this->db->query($consulta) or die('Error en obteniendo el mail del usuario: ' . mysqli_error($this->db));
+
+        while ($obj = $resultado->fetch_object()) {
+            $mail = $obj->mail;
+        }
+
+        return $mail;      
+    } 
 }
 
 ?>

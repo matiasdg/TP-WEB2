@@ -274,11 +274,13 @@ function eliminarProducto(){
 	console.log("items: " + items);
 
 	var itemsJSON = JSON.stringify(items);
-	$.get( "inc/controller/eliminarProductoCarrito.php", { items : itemsJSON } );
+	$.get( "inc/controller/eliminarProductoCarrito.php", { items : itemsJSON }, actualizarPrecioCarrito );
 	$(".item-false").remove();
 }
 
-
+function actualizarPrecioCarrito(dato){
+	$(".total p span").text(dato);
+}
 
 // function calcularDemora(){
 

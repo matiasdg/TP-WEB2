@@ -54,7 +54,7 @@
 					    	</li>
 					    </ul> ";
 					}else{
-					    echo "<a href='#iniciar-sesion' class='fancybox'>INICIAR SESIÓN</a>";
+					    echo "<a href='#iniciar-sesion' class='iniciar-sesion-box'>INICIAR SESIÓN</a>";
 					}
 
 				?>				

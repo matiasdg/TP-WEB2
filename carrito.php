@@ -136,12 +136,12 @@
 
 					<div class="tabla">
 						<div class"col-50">
-							<input type="radio" name="modo-pago" id="pago-tarjeta" value="radio-tarjeta" />
+							<input type="radio" name="modo-pago" id="pago-tarjeta" value="radio-tarjeta" >
 							<label for="tarjeta">Tarjeta de crédito</label>
 							<input type="text" id="tarjeta" disabled>
 						</div>
 						<div class="col-50">
-							<input type="radio" name="modo-pago" value="input-efectivo" checked/>
+							<input type="radio" name="modo-pago" value="input-efectivo" checked>
 							<label for="efectivo">Efectivo</label>
 						</div>
 					</div>
@@ -235,9 +235,14 @@
 
 					</div>
 
-					<a href="#" class="btn btn-success btn-submit" id="encargar">Confirmar compra</a>
+					<a href="#" class="btn btn-success btn-submit" id="encargar-confirmar">Confirmar compra</a>
 
 				</form>
+			</div>
+
+			<div id="mensaje-compra">
+				<p>Compra realizada!</p>
+				<p>Se le ha enviado el comprobante por mail</p>
 			</div>
 		</div>
 	</div>

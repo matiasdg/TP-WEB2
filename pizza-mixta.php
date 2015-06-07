@@ -54,7 +54,7 @@
 							    </ul>					    		
 					    	</li>
 					    </ul> ";					}else{
-					    echo "<a href='#iniciar-sesion' class='fancybox'>INICIAR SESIÓN</a>";
+					    echo "<a href='#iniciar-sesion' class='iniciar-sesion-box'>INICIAR SESIÓN</a>";
 					}
 
 				?>				
@@ -158,7 +158,7 @@
 				<div class="flex-item">
 					<div class="precio-btn">
 						<div class="precio">
-							<p>Precio: <span>$0.0</span></p>
+							<p>Precio: $<span>0.0</span></p>
 						</div>
 						<a href="#" class="btn btn-success" id="agregarCarrito-Mixta">Agregar al carrito</a>
 					</div>

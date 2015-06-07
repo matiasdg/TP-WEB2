@@ -44,10 +44,6 @@ class Carrito extends Modelo {
 
     }
 
-    private function actualizarPrecio(){
-
-    }
-
 
     public function eliminar($items){
 
@@ -116,10 +112,12 @@ class Carrito extends Modelo {
 
         foreach($carrito as $articulo){
 
-            echo "  <div class='table-row item item-".$itemNumero."' id='".$articulo['unique_id']."'>
+            echo "  
+                    <div class='table-row item item-".$itemNumero."' id='".$articulo['unique_id']."'>
+                    <div class='title-movil'><p>Producto ".$itemNumero."</p></div>
                         <div class='table-cell'>
                             <div class='details'>
-                                <p>".$articulo['nombre']."</p>
+                                <p>".ucfirst( $articulo['nombre'] )."</p>
                             </div>
                         </div>
                         <div class='table-cell'>
@@ -127,19 +125,19 @@ class Carrito extends Modelo {
                                 <p>";
                                 foreach($articulo['detalles'] as $detalles)
                                 {
-                                    echo $detalles."<br/>";
+                                    echo ucfirst( $detalles )."<br/>";
                                 }
                                 echo "</p>
                             </div>
                         </div>
                         <div class='table-cell'>
                             <div class='details'>
-                                <p>".$articulo['tamanio']."</p>
+                                <p>".ucfirst( $articulo['tamanio'] )."</p>
                             </div>
                         </div>
                         <div class='table-cell'>
                             <div class='details'>
-                                <p>$".$articulo['precio']."</p>
+                                <p>$".ucfirst( $articulo['precio'] )."</p>
                             </div>
                         </div>
                     </div>";
@@ -149,6 +147,10 @@ class Carrito extends Modelo {
 
 
         echo "</div>";
+
+        echo "<div class='total'>
+                <p>TOTAL: $<span>".self::obtenerPrecioTotal()."</span></p>
+             </div>";
 
 
     }
@@ -160,6 +162,7 @@ class Carrito extends Modelo {
     }
 
 
+
     public function realizarCompra($datos){
         $carrito = $this->carrito;
 
@@ -168,16 +171,16 @@ class Carrito extends Modelo {
         //Traigo los datos correspondientes y los guardo en variabes:
 
         //Creo un objeto de tipo Sistema para llamar a un método de dicha clase.
-
         $sistema = new Sistema();
         $usuario = $_SESSION['usuario'];
-
         $id_usuario = $sistema->obtenerIdUsuario($usuario);
 
+        //Obtengo la fecha actual.
         $fecha_pedido = date("d/m/y");
-        $calle = $datos['pago'];
-        $numero_domicilio = $datos['pago'];
-        $depto = $datos['pago'];
+        $calle = $datos['calle'];
+        $numero_domicilio = $datos['altura'];
+        $depto = $datos['depto'];
+        //Obtengo el precio total de los productos del carrito.
         $precio_total = self::obtenerPrecioTotal();
         $modo_pago = $datos['pago'];
         
@@ -186,13 +189,16 @@ class Carrito extends Modelo {
             $numero_tarjeta = $datos['numeroTarjeta'];
         }else
         {
-            $numero_tarjeta = null;
+            $numero_tarjeta = 0;
         }
         
         
-        $estado = "no entregado";
+        $estado = 'no entregado';
+        //Obtengo el último ID de pedido de la BDD, y le sumo 1. 
+        //(Si el último pedido es el 012, el pedido que procesamos ahora será el 013) 
         $id_pedido = $sistema->obtenerIdUltimoPedido() + 1;
 
+        //Recorro todos los productos del carrito.
         foreach($carrito as $articulo)
         {
             $detalles_string = "";
@@ -200,21 +206,25 @@ class Carrito extends Modelo {
             $precioArticulo = $articulo['precio'];
             $tamanioArticulo = $articulo['tamanio'];
 
+            //$articulo['detalles'] es un array que contiene los ingredientes o tipos de pizza(mixtas).
+            //Por lo tanto, recorro cada ítem para guardarlos en una cadena.
             foreach($articulo['detalles'] as $detalles)
             {
-               $detalles_string = $detalles_tring + $detalles.". ";
-            }   
+               $detalles_string = $detalles_string . $detalles.". ";
+            }
 
-            $consulta = "INSERT INTO PEDIDOS VALUES
-                        ('$id_pedido', '$id_usuario', 'id_producto', '$fecha_pedido', '$nombreArticulo', 
-                            '$detalles_string', $precioArticulo, '$tamanioArticulo', '$calle', $numero_domicilio, 
-                            $depto, $precio_total, '$modo_pago', $numero_tarjeta, '$estado')";
+            $numero_domicilio = (int)$numero_domicilio;
+            $numero_tarjeta = (int)$numero_tarjeta;
+
+            $consulta = "INSERT INTO PEDIDOS 
+                        (id_pedido, id_usuario, fecha, producto, detalles, precio, tamanio, calle, altura, depto, modo_pago, numero_tarjeta, estado) VALUES
+                        ($id_pedido, '$id_usuario', '$fecha_pedido', '$nombreArticulo', '$detalles_string', $precioArticulo, '$tamanioArticulo', '$calle', $numero_domicilio, '$depto', '$modo_pago', $numero_tarjeta, 'no entregado')";
 
             $this->db->query($consulta) or die("Error al realizar compra: " . mysqli_error($this->db));
 
         }
 
-
+        return $id_pedido;
     }
 
 
@@ -227,6 +237,10 @@ class Carrito extends Modelo {
         }
 
         return $precio_total;
+    }
+
+    public function actualizarPrecio(){
+        echo self::obtenerPrecioTotal();
     }
 
 }

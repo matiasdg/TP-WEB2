@@ -54,7 +54,7 @@
 							    </ul>					    		
 					    	</li>
 					    </ul> ";					}else{
-					    echo "<a href='#iniciar-sesion' class='fancybox'>INICIAR SESIÓN</a>";
+					    echo "<a href='#iniciar-sesion' class='iniciar-sesion-box'>INICIAR SESIÓN</a>";
 					}
 
 				?>				
@@ -81,7 +81,7 @@
 	<div class="main">
 		<div class="wrapper">
 			<div class="pizza-predefinida">
-				<div class="flex-item">
+				<div class="flex-item order-2">
 					<div class="pizza">
 						<div class="pizza-foto">
 							<img src="images/pizzas/napolitana.jpg" alt="">
@@ -167,7 +167,7 @@
 				<div class="flex-item">
 					<div class="precio-btn">
 						<div class="precio">
-							<p>Precio: <span>$0</span></p>
+							<p>Precio: $<span>0</span></p>
 						</div>
 						<a href="#" class="btn btn-success" id="agregarCarrito-Personalizada">Agregar al carrito</a>
 					</div>
