@@ -50,7 +50,7 @@
 					    	<li id='open-menu-usuario'>
 					    		<a href='#' id='usuario'>".$_SESSION['usuario']."</a>
 							    <ul class='usuario-menu-desplegable'>
-									<li><a href='#'>Cerrar sesión</a></li>
+									<li><a href='#cerrarSesion' id='cerrarSesion'>Cerrar sesión</a></li>
 							    </ul>					    		
 					    	</li>
 					    </ul> ";
@@ -103,7 +103,7 @@
 					<div class="pizza">
 						<img src="images/pizzas/predefinidas/napolitana.jpg" alt="">
 						<div class="oculto">
-							<i class="icon-circle-with-plus"></i>
+							<a href='pizzas.php?categoria=predefinidas'><i class='icon-circle-with-plus btn-enviarPizza'></i></a>
 						</div>
 					</div>
 					<div class="name">
@@ -116,7 +116,7 @@
 					<div class="pizza">
 						<img src="images/pizzas/veganas/espinaca.jpg" alt="">
 						<div class="oculto">
-							<i class="icon-circle-with-plus"></i>
+							<a href='pizzas.php?categoria=veganas'><i class='icon-circle-with-plus btn-enviarPizza'></i></a>
 						</div>
 					</div>
 					<div class="name">
@@ -129,7 +129,7 @@
 					<div class="pizza">
 						<img src="images/pizzas/celiacas/celiaca vegana.jpg" alt="">
 						<div class="oculto">
-							<i class="icon-circle-with-plus"></i>
+							<a href='pizzas.php?categoria=celiacas'><i class='icon-circle-with-plus btn-enviarPizza'></i></a>
 						</div>
 					</div>
 					<div class="name">
@@ -142,7 +142,7 @@
 					<div class="pizza">
 						<img src="images/pizzas/infantiles/superman.jpg" alt="">
 						<div class="oculto">
-							<i class="icon-circle-with-plus"></i>
+							<a href='pizzas.php?categoria=infantiles'><i class='icon-circle-with-plus btn-enviarPizza'></i></a>
 						</div>
 					</div>
 					<div class="name">
@@ -155,7 +155,7 @@
 					<div class="pizza">
 						<img src="images/pizzas/mixtas/cuatro estaciones.jpg" alt="">
 						<div class="oculto">
-							<i class="icon-circle-with-plus"></i>
+							<a href='pizzas.php?categoria=mixtas'><i class='icon-circle-with-plus btn-enviarPizza'></i></a>
 						</div>
 					</div>
 					<div class="name">
@@ -168,7 +168,7 @@
 					<div class="pizza">
 						<img src="images/pizzas/personalizadas/pizza1.jpg" alt="">
 						<div class="oculto">
-							<i class="icon-circle-with-plus"></i>
+							<a href='pizza-personalizada.php'><i class='icon-circle-with-plus btn-enviarPizza'></i></a>
 						</div>
 					</div>
 					<div class="name">

@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Variepizzas - Pizzas Mixtas</title>
+	<title>Variepizzas - Administrador</title>
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="fonts/style.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+
 </head>
 <body>
 	<div class="bg">
@@ -29,9 +30,9 @@
 						<ul class="menu-desplegable">
 							<li><a class="btn-enviarCategoria" id="predefinidas" href="#PizzasDeLaCasa">Pizzas de la casa</a></li>
 							<li><a class="btn-enviarCategoria" id="veganas" href="#PizzasVeganas">Pizzas veganas</a></li>
-							<li><a class="btn-enviarCategoria" id="celiacas" href="#">Pizzas celiácas</a></li>
-							<li><a class="btn-enviarCategoria" id="infantiles" href="#">Pizzas infantiles</a></li>
-							<li><a class="btn-enviarCategoria" id="mixtas" href="#">Pizzas mixtas</a></li>
+							<li><a class="btn-enviarCategoria" id="celiacas" href="#PizzasCeliacas">Pizzas celiácas</a></li>
+							<li><a class="btn-enviarCategoria" id="infantiles" href="#PizzasInfantiles">Pizzas infantiles</a></li>
+							<li><a class="btn-enviarCategoria" id="mixtas" href="#PizzasMixtas">Pizzas mixtas</a></li>
 							<li><a href="pizza-personalizada.php">Pizzas personalizadas</a></li>
 						</ul>
 					</li>
@@ -44,7 +45,15 @@
 				<?php
 					session_start();
 
+					require ("inc/class/sistema_class.php");
+
+					$sistema = new Sistema();
+
 					if (isset($_SESSION['usuario'])){
+
+						if( $sistema->esAdministrador($_SESSION['usuario']) )
+						{
+
 					    echo 
 					    "<ul class='usuario-menu'>
 					    	<li id='open-menu-usuario'>
@@ -53,11 +62,23 @@
 									<li><a href='#cerrarSesion' id='cerrarSesion'>Cerrar sesión</a></li>
 							    </ul>					    		
 					    	</li>
-					    </ul> ";					}else{
-					    echo "<a href='#iniciar-sesion' class='iniciar-sesion-box'>INICIAR SESIÓN</a>";
+					    </ul> ";
+
+						}else
+						{
+							echo "false";
+							header("Location: accesoNoAutorizado.php"); 
+							exit(); 
+						}
+
+					}else{
+						echo "false";
+						header("Location: accesoNoAutorizado.php"); 
+						exit(); 
 					}
 
-				?>				
+				?>
+				
 				<div class="carrito">
 					<a href="carrito.php"><i class="icon-shopping-cart"></i></a>
 				</div>
@@ -80,22 +101,39 @@
 
 	<div class="main">
 		<div class="wrapper">
-			<div class="pizza-predefinida">
-				<div class="flex-item">
-					<div class="pizza">
-						<div class="pizza-foto">
-							<img src="images/pizzas/mixtas/cuatro estaciones.jpg" alt="">
-						</div>
-						<p>MIXTA</p>
-					</div>
+			<div class="agregar-pizza">
+				<div class="title">
+					<p>AGREGAR PIZZA</p>
 				</div>
-				<div class="flex-item">
-					<div class="ingredientes">
-						<p>Sabores</p>
+				<form action="inc/controller/agregarPizza.php" method="post" enctype="multipart/form-data">
+
+					<div class="agregar-pizza-nombre">
+						<label for="nombre">Nombre</label>
+						<input type="text" id="pizzaNueva-nombre" required>
+					</div>
+
+					<div class="agregar-pizza-nombre">
+						<label for="categoria">Categoría</label>
+						<select name="pizzaNueva-categoria" id="pizzaNueva-categoria" required>
+							<option value="predefinidas">Predefinidas</option>
+							<option value="veganas">Veganas</option>
+							<option value="celiacas">Celiacas</option>
+							<option value="mixtas">Mixtas</option>
+							<option value="infantiles">Infantiles</option>
+						</select>
+					</div>
+
+					<div class="agregar-pizza-imagen">
+						<label for="imagen">Imagen</label>
+						<input type="file" id="pizzaNueva-imagen" accept="image/jpeg" required>
+					</div>
+
+					<div class="agregar-pizza-sabores">
+						<label for="imagen">Sabores</label>
 						<ul>
 							<li>
 								<input type="checkbox" id="checkSabor-1" class="checkSabor" />
-								<select name="sabores1" id="sabores1" disabled="disabled" class="selectSabor">
+								<select name="sabores1" id="sabores1" disabled="disabled" class="selectSaborAdmin">
 									<option value=null disabled selected>Seleccione</option>
 									<?php 
 										require_once('inc/class/pizza_class.php');
@@ -107,7 +145,7 @@
 							</li>
 							<li>
 								<input type="checkbox" id="checkSabor-2" class="checkSabor" />
-								<select name="sabores2" id="sabores2" disabled="disabled" class="selectSabor">
+								<select name="sabores2" id="sabores2" disabled="disabled" class="selectSaborAdmin">
 									<option value=null disabled selected>Seleccione</option>
 									<?php 
 										require_once('inc/class/pizza_class.php');
@@ -119,7 +157,7 @@
 							</li>
 							<li>
 								<input type="checkbox" id="checkSabor-3" class="checkSabor" />
-								<select name="sabores3" id="sabores3" disabled="disabled" class="selectSabor">
+								<select name="sabores3" id="sabores3" disabled="disabled" class="selectSaborAdmin">
 									<option value=null disabled selected>Seleccione</option>
 									<?php 
 										require_once('inc/class/pizza_class.php');
@@ -131,7 +169,7 @@
 							</li>
 							<li>
 								<input type="checkbox" id="checkSabor-4" class="checkSabor"/>
-								<select name="sabores4" id="sabores4" disabled="disabled" class="selectSabor">
+								<select name="sabores4" id="sabores4" disabled="disabled" class="selectSaborAdmin">
 									<option value=null disabled selected>Seleccione</option>
 									<?php 
 										require_once('inc/class/pizza_class.php');
@@ -143,28 +181,38 @@
 							</li>
 						</ul>
 					</div>
-				</div>
 
-				<div class="flex-item">
-					<div class="opciones">
-						<p>Tamaño</p>
+					<div class="agregar-pizza-ingredientes">
+						<label for="ingredientes">Ingredientes</label>
 						<ul>
-							<li><input type="radio" name="tamanio" value="grande" checked="checked" /><label for="grande">Grande</label></li>
-							<li><input type="radio" name="tamanio" value="mediana" /><label for="mediana">Mediana</label></li>
+							<?php
+								require_once ("inc/class/pizza_class.php");
+								$pizza = new Pizza();
+
+								$pizza->obtenerIngredientes();
+						 	?>								
 						</ul>
 					</div>
-				</div>
-
-				<div class="flex-item">
-					<div class="precio-btn">
-						<div class="precio">
-							<p>Precio: $<span>0.0</span></p>
-						</div>
-						<a href="#" class="btn btn-success" id="agregarCarrito-Mixta">Agregar al carrito</a>
+					
+					<div class="agregar-pizza-precio">
+						<label for="precio">Precio</label>
+						<span>$</span>
+						<span id="precio-dinamico">0</span>
+						<span>+</span>
+						<input type="text" id="pizzaNueva-precio" value="0">
+						<span> = $</span>
+						<span id="precio-dinamico-total">0</span>
 					</div>
-				</div>
+
+
+					<div class="center">
+						<a href="#" class="btn btn-success" id="agregarPizzaAdmin">Agregar Pizza</a>
+					</div>
+				</form>
 			</div>
+			
 		</div>
+
 	</div>
 
 	<footer>
@@ -180,16 +228,15 @@
 				<p>Desarrollado por</p><a href="#"> MGL</a>
 			</div>
 		</div>
-	</footer>
-
+	</footer>	
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/main.js"></script>
-<script src="js/server.js"></script>	
+<script src="js/server.js"></script>
 <!-- Add mousewheel plugin (this is optional) -->
 <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 
 <!-- Add fancyBox -->
 <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>	
 </body>
 </html>

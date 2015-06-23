@@ -34,6 +34,19 @@ body{
 
 }
 
+.btn-warning-disabled{
+	cursor:not-allowed;
+}
+
+.btn-warning-disabled{
+	color:#fff;
+	background-color: rgba(239, 72, 54, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+
 /*######################## Estilos del fondo-slider ########################*/
 
 
@@ -197,6 +210,10 @@ header #open-menu-usuario:hover .usuario-menu-desplegable{
 	display:block;
 
 
+}
+
+#mensaje-compra{
+	display:none;
 }
 
 
@@ -549,6 +566,8 @@ footer > div > div{
 .pizza-predefinida .flex-item > .pizza > p {
 	text-align: center;
 	padding: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
 }
 
 
@@ -574,6 +593,7 @@ footer > div > div{
 .pizza-predefinida .flex-item ul li{
 	padding:5px 0;
 	flex:1 1 50%;
+	text-transform: capitalize;
 }
 
 .pizza-predefinida .flex-item label{
@@ -646,6 +666,43 @@ footer > div > div{
 	}
 
 }
+
+.mensaje-carrito{
+	text-align: center;
+	width: 100%;
+}
+
+.mensaje-carrito .title{
+	background-color: tomato;
+	padding: 10px;
+	width: 100%;
+}
+
+.mensaje-carrito .title p{
+	color:#fff;
+	font-weight: bold;
+}
+
+.mensaje-carrito div{}
+
+.mensaje-carrito div label{
+	margin: 10px auto;
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	width: 90%;
+	padding: 5px;
+	font-weight: bold;
+	color: #fff;
+	background-color: rgba(38, 166, 91, 0.9);
+}
+
+.mensaje-carrito div p{
+	text-transform: capitalize;;
+}
+
+
+
 
 
 /*############################### ESTILOS DE CARRITO.HTML ######################*/
@@ -759,6 +816,7 @@ footer > div > div{
 	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
 }
 
+
 .btn-warning:hover{
 	background-color: rgba(239, 72, 54, 1);
 }
@@ -774,6 +832,19 @@ footer > div > div{
 
 .btn-success:hover{
 	background-color: rgba(38, 166, 91, 1);
+}
+
+.btn-info{
+	color:#fff;
+	background-color: rgba(240, 173, 78, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+}
+
+.btn-info:hover{
+	background-color: rgba(240, 173, 78, 1);
+
 }
 
 .btn-deshabilitado{
@@ -859,18 +930,6 @@ footer > div > div{
 
 #confirmacion form .demora-info p span{}
 
-.btn-info{
-	background-color: rgba(255 ,99 , 71 , 0.7);
-	color:#fff;
-	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
-	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
-	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
-
-}
-
-.btn-info:hover{
-	background-color: rgba(255 ,99 , 71 , 1);
-}
 
 #metodo-pago input[type="radio"]{
 	display: inline-block;
@@ -893,6 +952,42 @@ footer > div > div{
 .title-movil p{
 	padding: 5px;
 	font-weight: bold;
+}
+
+#confirmar-datos label{
+	display: block;
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+#confirmar-datos .tabla p{
+	margin-top: 5px;
+}
+
+#confirmar-datos a{
+	margin-top: 20px;
+}
+
+.confirmar-title-seccion{
+	margin:30px;
+	background-color: rgba(255 ,99 , 71 , 0.9);
+	color:#fff;
+}
+
+.confirmar-title-seccion > p{
+	padding:5px;
+}
+
+.producto-item{
+	width: 50%;
+	margin: 20px auto;
+	background-color: rgba(38, 166, 91, 0.9);
+	color: #fff;
+}
+
+.producto-item p{
+	padding: 5px;
+
 }
 
 @media screen and (max-width: 425px){
@@ -1512,3 +1607,186 @@ header nav > ul > li > a:hover, header .user-section a:hover{
 }
 
 
+/*############################### ESTILOS DE AGREGARPIZZAADMIN.HTML ######################*/
+
+.agregar-pizza{
+	padding:10px;
+	margin:10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	color:#fff;
+}
+
+.agregar-pizza a{
+	margin-top: 20px;
+}
+
+.agregar-pizza .title{
+	width: 100%;
+	text-align: center;
+	background-color: tomato;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.agregar-pizza-nombre, .agregar-pizza-imagen, .agregar-pizza-ingredientes, .agregar-pizza-precio, .agregar-pizza-sabores{
+	margin-top: 10px;
+}
+
+.agregar-pizza-nombre label, .agregar-pizza-imagen label, .agregar-pizza-ingredientes>label, .agregar-pizza-precio label, .agregar-pizza-sabores label{
+	font-weight: bold;
+	font-size: 1.1em;
+	margin: 5px 0;
+	display:block;
+}
+
+.agregar-pizza-nombre input, .agregar-pizza-imagen input, .agregar-pizza-ingredientes input{}
+
+.agregar-pizza-ingredientes ul{
+	list-style: none;
+	display:flex;
+	flex-flow:row wrap;
+}
+
+.agregar-pizza-ingredientes ul li{
+	margin: 5px 0;
+	flex:1 1 50%;
+	min-width: 200px;
+}
+
+.agregar-pizza-ingredientes ul li label{
+	text-transform: uppercase;
+}
+
+.agregar-pizza-ingredientes ul li input[type=checkbox]:checked{
+
+}
+
+.agregar-pizza-ingredientes ul li input[type=checkbox]:checked + label{
+	color:tomato;
+	font-weight: bold;
+}
+
+.agregar-pizza-ingredientes .cantidad{
+	width: 50px;
+	float: right;
+  	margin-right: 20px;
+}
+
+.cantidad:disabled{
+	background-color: rgb(225, 225, 218);
+}
+
+.pizzaNueva-precio{
+	width: 50px;
+}
+
+.center{
+	text-align: center;
+	width: 100%;
+	overflow: hidden;
+}
+
+.agregar-pizza-sabores{
+	height:0;
+	overflow: hidden;
+	transition:all 1s ease;
+}
+
+.agregar-pizza-sabores ul{
+	list-style: none;
+}
+
+.agregar-pizza-sabores ul li{
+	margin: 10px 0;
+
+}
+
+/*############################### ESTILOS DE IZZAADMIN.HTML ######################*/
+
+.eliminarPizza{
+	padding:10px;
+	margin:10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	color:#fff;
+}
+
+.eliminarPizza .eliminarPizza-tabla{
+	display:block;
+	width: 100%;
+}
+
+.eliminarPizza > .title{
+	width: 100%;
+	text-align: center;
+	background-color: tomato;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.eliminarPizza > .title p{
+
+}
+
+.eliminarPizza table{
+	width: 100%;
+	border-collapse: collapse;
+	margin:10px auto;
+}
+
+table tr {
+	border-bottom:1px solid rgba(255, 255, 255, 0.5);
+}
+
+table td, table th{
+	padding:10px;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+#agregarIngredienteAdmin{
+	transition: all 1s ease;
+}
+
+
+.nuevoIng{
+	opacity:0;
+	transition: all 1s ease;
+}
+
+
+/*############################### ESTILOS DE Acceso no autorizado.HTML ######################*/
+
+.box-mensaje{
+	padding:10px;
+	margin:10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	-Moz-box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	box-shadow: 1px 1px 10px 1px rgba(34, 33, 33, 0.7);
+	color:#fff;
+}
+
+.box-mensaje .mensaje{
+	padding: 20px 10px;
+	text-align: center;
+}
+
+.box-mensaje .mensaje p{
+	font-size: 5em;
+}
+
+.box-mensaje .ir-a{
+	text-align: center;
+}
+
+.box-mensaje .ir-a a{
+	font-size: 1.5em;
+	text-decoration: none;
+	color:#fff;
+}

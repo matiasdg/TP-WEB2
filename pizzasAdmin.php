@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Variepizzas - Pizzas</title>
+	<title>Variepizzas - Administrador</title>
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="fonts/style.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -45,7 +45,15 @@
 				<?php
 					session_start();
 
+					require ("inc/class/sistema_class.php");
+
+					$sistema = new Sistema();
+
 					if (isset($_SESSION['usuario'])){
+
+						if( $sistema->esAdministrador($_SESSION['usuario']) )
+						{
+
 					    echo 
 					    "<ul class='usuario-menu'>
 					    	<li id='open-menu-usuario'>
@@ -55,8 +63,18 @@
 							    </ul>					    		
 					    	</li>
 					    </ul> ";
+
+						}else
+						{
+							echo "false";
+							header("Location: accesoNoAutorizado.php"); 
+							exit(); 
+						}
+
 					}else{
-					    echo "<a href='#iniciar-sesion' class='iniciar-sesion-box'>INICIAR SESIÓN</a>";
+						echo "false";
+						header("Location: accesoNoAutorizado.php"); 
+						exit(); 
 					}
 
 				?>
@@ -83,51 +101,37 @@
 
 	<div class="main">
 		<div class="wrapper">
-			<div class="fixed-menu">
-				<ul>
-							<li><a class="btn-enviarCategoria" id="predefinidas" href="#PizzasDeLaCasa">Pizzas de la casa</a></li>
-							<li><a class="btn-enviarCategoria" id="veganas" href="#PizzasVeganas">Pizzas veganas</a></li>
-							<li><a class="btn-enviarCategoria" id="celiacas" href="#PizzasCeliacas">Pizzas celiácas</a></li>
-							<li><a class="btn-enviarCategoria" id="infantiles" href="#PizzasInfantiles">Pizzas infantiles</a></li>
-							<li><a class="btn-enviarCategoria" id="mixtas" href="#PizzasMixtas">Pizzas mixtas</a></li>
-							<li><a href="pizza-personalizada.php">Pizzas personalizadas</a></li>
-				</ul>
-			</div>
-			<div class="fixed-menu-small">
-				<div class="ancho">
-					<div class="title">
-						<p>M</p>
-						<p>E</p>
-						<p>N</p>
-						<p>Ú</p>
-					</div>
-					<div class="menu">
-						<ul>
-							<li><a class="btn-enviarCategoria" id="predefinidas" href="#PizzasDeLaCasa">Pizzas de la casa</a></li>
-							<li><a class="btn-enviarCategoria" id="veganas" href="#PizzasVeganas">Pizzas veganas</a></li>
-							<li><a class="btn-enviarCategoria" id="celiacas" href="#PizzasCeliacas">Pizzas celiácas</a></li>
-							<li><a class="btn-enviarCategoria" id="infantiles" href="#PizzasInfantiles">Pizzas infantiles</a></li>
-							<li><a class="btn-enviarCategoria" id="mixtas" href="#PizzasMixtas">Pizzas mixtas</a></li>
-							<li><a href="pizza-personalizada.php">Pizzas personalizadas</a></li>
-						</ul>					
-					</div>
+			<div class="eliminarPizza">
+				<div class="title">
+					<p>PIZZAS</p>
 				</div>
-			</div>
-			<div class="boxes">
-				<?php 
-					require ("inc/class/pizza_class.php");
-					$pizza = new Pizza();
-					
-					if(isset($_REQUEST['categoria']))
-					{
-						$categoria = $_REQUEST['categoria'];
-						$pizza->extraerPorCategoria($categoria);
-					}else
-					{
-						$pizza->mostrarTodasPizzas();
-					}
 
-				 ?>
+				 <div class="eliminarPizza-tabla">
+					<table>
+				        <thead>
+				           <tr>
+				             <th>Nombre</th>
+				             <th>Categoria</th>
+				             <th>Detalles</th>
+				             <th>Precio</th>
+				             <th colspan="2">Acciones</th>
+				           </tr>
+				        </thead>
+						 <?php 
+							require ("inc/class/pizza_class.php");
+
+							$pizza = new Pizza();
+							$pizza->mostrarPizzasTabla();
+
+						 ?>
+						<tr>
+							<td colspan="6">
+								<a href='agregarPizzaAdmin.php' class='btn btn-success'>Agregar</a>
+							</td>
+						</tr>
+
+					</table>
+				 </div>
 			</div>
 		</div>
 

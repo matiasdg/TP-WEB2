@@ -51,7 +51,7 @@
 					    	<li id='open-menu-usuario'>
 					    		<a href='#' id='usuario'>".$_SESSION['usuario']."</a>
 							    <ul class='usuario-menu-desplegable'>
-									<li><a href='#'>Cerrar sesión</a></li>
+									<li><a href='#cerrarSesion' id='cerrarSesion'>Cerrar sesión</a></li>
 							    </ul>					    		
 					    	</li>
 					    </ul> ";
@@ -89,11 +89,6 @@
 				$carrito = new Carrito();
 				$carrito->mostrarProductos();
 			 ?>
-				<div class="controles">
-					<a class='btn btn-warning' href='#' id='cancelar-productos-carrito'>Cancelar</a>
-					<a class="btn btn-warning" href="#" id="eliminar-productos-carrito">Eliminar Productos</a>
-					<a class="btn btn-success confirmacion" href="#confirmacion" id="confirmar-productos-carrito">Confirmar Productos</a>
-				</div>
 			</div>
 
 			<div id="confirmacion">
@@ -169,34 +164,34 @@
 
 						<div class"col-50">
 							<label for="tarjeta">Nombre</label>
-							<p>Juan</p>
+							<p id="confirmar-nombre">Juan</p>
 						</div>
 						<div class="col-50">
 							<label for="efectivo">Apellido</label>
-							<p>Pérez</p>
+							<p id="confirmar-apellido">Pérez</p>
 						</div>
 						<label for="usuario">Usuario</label>
-						<p>JuanP</p>
+						<p id="confirmar-usuario">JuanP</p>
 						<label for="tipo-dni">Tipo de documento</label>
-						<p>DNI</p>
+						<p id="confirmar-tipo_dni">DNI</p>
 						<label for="dni">Número de documento</label>
-						<p>20987237</p>
+						<p id="confirmar-numero_dni">20987237</p>
 						<label for="calle">Calle</label>
-						<p>Calle Falsa</p>
+						<p id="confirmar-calle">Calle Falsa</p>
 						<label for="altura">Altura</label>
-						<p>123</p>
+						<p id="confirmar-altura">123</p>
 						<label for="departamento">Departamento</label>
-						<p>9</p>
+						<p id="confirmar-depto">9</p>
 						<label for="partido">Partido</label>
-						<p>Moron</p>
+						<p id="confirmar-partido">Moron</p>
 						<label for="provincia">Provincia</label>
-						<p>Buenos Aires</p>
+						<p id="confirmar-provincia">Buenos Aires</p>
 						<label for="telefono">Teléfono</label>
-						<p>47783219</p>
+						<p id="confirmar-telefono">47783219</p>
 						<label for="celular">Teléfono personal</label>
-						<p>15783982</p>
+						<p id="confirmar-celular">15783982</p>
 						<label for="mail">Email</label>
-						<p>juanperez@it</p>
+						<p id="confirmar-mail">juanperez@it</p>
 						
 						<!-- Datos del domicilio de la entrega -->
 						<div class="domicilio-confirmar">
@@ -205,32 +200,11 @@
 							</div>
 
 							<label for="calle">Calle</label>
-							<p>Calle Falsa</p>
+							<p id="confirmar-calle-encargo">Calle Falsa</p>
 							<label for="altura">Altura</label>
-							<p>1213</p>
+							<p id="confirmar-altura-encargo">1213</p>
 							<label for="departamento">Departamento</label>
-							<p>23</p>
-						</div>
-
-						<!-- Datos del pedido -->
-						<div class="productos-confirmar">
-							<div class="confirmar-title-seccion">
-								<p>Datos del pedido</p>
-							</div>
-
-							<label for="producto">Producto</label>
-							<p>Pizza Napolitana</p>
-							<label for="detalles">Detalles</label>
-							<p>Queso, queso, queso, queso, queso</p>
-							<label for="tamanio">Tamaño</label>
-							<p>Mediana</p>
-							<label for="precio">Precio</label>
-							<p>$56</p>
-
-							<label for="precio-total">Precio Total</label>
-							<p>$56</p>
-
-
+							<p id="confirmar-depto-encargo">23</p>
 						</div>
 
 					</div>
@@ -242,7 +216,7 @@
 
 			<div id="mensaje-compra">
 				<p>Compra realizada!</p>
-				<p>Se le ha enviado el comprobante por mail</p>
+				<p>Se le ha enviado el comprobante por mail.</p>
 			</div>
 		</div>
 	</div>

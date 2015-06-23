@@ -40,8 +40,6 @@ class Carrito extends Modelo {
 
     	$this->actualizarCarrito();
 
-        $this->actualizarPrecio();
-
     }
 
 
@@ -58,24 +56,61 @@ class Carrito extends Modelo {
     public function informar(){
     	$carrito = $this->carrito;
 
-    	foreach($carrito as $articulo)
-    	{
-    		echo "nombre: ".$articulo['nombre']."<br/>";
-    		echo "precio: ".$articulo['precio']."<br/>";
-    		echo "tamanio: ".$articulo['tamanio']."<br/>";
+        //Informo el último producto agregado
 
-            echo "Detalles: <br/>";
-    		foreach($articulo['detalles'] as $detalles)
-    		{
-    			echo $detalles."<br/>";
-    		}	
-    	}
+        $ultimoArticulo = end($carrito);
+
+        echo
+        "<div class='mensaje-carrito'>
+            <div class='title'>
+                <p>Producto agregado</p>
+            </div>
+
+            <div class='producto-nombre'>
+                <label>Nombre</label>
+                <p>".$ultimoArticulo['nombre']."</p>
+            </div>
+            <div class='producto-detalles'>
+                <label>Detalles</label>
+                <p>";
+                    foreach($ultimoArticulo['detalles'] as $detalles)
+                    {
+                        echo $detalles.". ";
+                    }   
+                echo
+                "</p>
+            </div>
+            <div class='producto-tamanio'>
+                <label>Tamaño</label>
+                <p>".$ultimoArticulo['tamanio']."</p>
+            </div>
+            <div class='producto-precio'>
+                <label>Precio</label>
+                <p>$".$ultimoArticulo['precio']."</p>
+            </div>
+        </div>";
+    }
+
+    private function estaVacio(){
+        $carrito = $this->carrito;
+
+        if( sizeof($carrito) == 0 )
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
     }
 
     public function mostrarProductos(){
         
 
         if(!isset($_SESSION["carrito"]))
+        {
+            echo "No hay productos agregados al carrito.<br/>";
+            return false;
+        }elseif ( self::estaVacio())
         {
             echo "No hay productos agregados al carrito.<br/>";
             return false;
@@ -151,6 +186,13 @@ class Carrito extends Modelo {
         echo "<div class='total'>
                 <p>TOTAL: $<span>".self::obtenerPrecioTotal()."</span></p>
              </div>";
+
+
+        echo "  <div class='controles'>
+                    <a class='btn btn-warning' href='#' id='cancelar-productos-carrito'>Cancelar</a>
+                    <a class='btn btn-warning' href='#' id='eliminar-productos-carrito'>Eliminar Productos</a>
+                    <a href='#confirmacion' class='btn btn-success confirmacion' id='confirmar-productos-carrito'>Confirmar Productos</a>
+                </div>";
 
 
     }

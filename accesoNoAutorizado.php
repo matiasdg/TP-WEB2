@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Variepizzas - Pizzas</title>
+	<title>Variepizzas - Acceso No Autorizado</title>
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="fonts/style.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
-
 </head>
 <body>
 	<div class="bg">
@@ -30,9 +29,9 @@
 						<ul class="menu-desplegable">
 							<li><a class="btn-enviarCategoria" id="predefinidas" href="#PizzasDeLaCasa">Pizzas de la casa</a></li>
 							<li><a class="btn-enviarCategoria" id="veganas" href="#PizzasVeganas">Pizzas veganas</a></li>
-							<li><a class="btn-enviarCategoria" id="celiacas" href="#PizzasCeliacas">Pizzas celiácas</a></li>
-							<li><a class="btn-enviarCategoria" id="infantiles" href="#PizzasInfantiles">Pizzas infantiles</a></li>
-							<li><a class="btn-enviarCategoria" id="mixtas" href="#PizzasMixtas">Pizzas mixtas</a></li>
+							<li><a class="btn-enviarCategoria" id="celiacas" href="#">Pizzas celiácas</a></li>
+							<li><a class="btn-enviarCategoria" id="infantiles" href="#">Pizzas infantiles</a></li>
+							<li><a class="btn-enviarCategoria" id="mixtas" href="#">Pizzas mixtas</a></li>
 							<li><a href="pizza-personalizada.php">Pizzas personalizadas</a></li>
 						</ul>
 					</li>
@@ -83,54 +82,15 @@
 
 	<div class="main">
 		<div class="wrapper">
-			<div class="fixed-menu">
-				<ul>
-							<li><a class="btn-enviarCategoria" id="predefinidas" href="#PizzasDeLaCasa">Pizzas de la casa</a></li>
-							<li><a class="btn-enviarCategoria" id="veganas" href="#PizzasVeganas">Pizzas veganas</a></li>
-							<li><a class="btn-enviarCategoria" id="celiacas" href="#PizzasCeliacas">Pizzas celiácas</a></li>
-							<li><a class="btn-enviarCategoria" id="infantiles" href="#PizzasInfantiles">Pizzas infantiles</a></li>
-							<li><a class="btn-enviarCategoria" id="mixtas" href="#PizzasMixtas">Pizzas mixtas</a></li>
-							<li><a href="pizza-personalizada.php">Pizzas personalizadas</a></li>
-				</ul>
-			</div>
-			<div class="fixed-menu-small">
-				<div class="ancho">
-					<div class="title">
-						<p>M</p>
-						<p>E</p>
-						<p>N</p>
-						<p>Ú</p>
-					</div>
-					<div class="menu">
-						<ul>
-							<li><a class="btn-enviarCategoria" id="predefinidas" href="#PizzasDeLaCasa">Pizzas de la casa</a></li>
-							<li><a class="btn-enviarCategoria" id="veganas" href="#PizzasVeganas">Pizzas veganas</a></li>
-							<li><a class="btn-enviarCategoria" id="celiacas" href="#PizzasCeliacas">Pizzas celiácas</a></li>
-							<li><a class="btn-enviarCategoria" id="infantiles" href="#PizzasInfantiles">Pizzas infantiles</a></li>
-							<li><a class="btn-enviarCategoria" id="mixtas" href="#PizzasMixtas">Pizzas mixtas</a></li>
-							<li><a href="pizza-personalizada.php">Pizzas personalizadas</a></li>
-						</ul>					
-					</div>
+			<div class="box-mensaje">
+				<div class="mensaje">
+					<p>ACCESO NO AUTORIZADO</p>
+				</div>
+				<div class="ir-a">
+					<a href="index.php">Inicio</a>
 				</div>
 			</div>
-			<div class="boxes">
-				<?php 
-					require ("inc/class/pizza_class.php");
-					$pizza = new Pizza();
-					
-					if(isset($_REQUEST['categoria']))
-					{
-						$categoria = $_REQUEST['categoria'];
-						$pizza->extraerPorCategoria($categoria);
-					}else
-					{
-						$pizza->mostrarTodasPizzas();
-					}
-
-				 ?>
-			</div>
 		</div>
-
 	</div>
 
 	<footer>
@@ -146,15 +106,19 @@
 				<p>Desarrollado por</p><a href="#"> MGL</a>
 			</div>
 		</div>
-	</footer>	
+	</footer>
+
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/server.js"></script>
+<script src="js/maps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>	
+
 <!-- Add mousewheel plugin (this is optional) -->
 <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 
 <!-- Add fancyBox -->
 <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>	
+<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 </body>
 </html>

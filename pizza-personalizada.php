@@ -50,10 +50,12 @@
 					    	<li id='open-menu-usuario'>
 					    		<a href='#' id='usuario'>".$_SESSION['usuario']."</a>
 							    <ul class='usuario-menu-desplegable'>
-									<li><a href='#'>Cerrar sesión</a></li>
+									<li><a href='#cerrarSesion' id='cerrarSesion'>Cerrar sesión</a></li>
 							    </ul>					    		
 					    	</li>
-					    </ul> ";					}else{
+					    </ul> ";
+					}else
+					{
 					    echo "<a href='#iniciar-sesion' class='iniciar-sesion-box'>INICIAR SESIÓN</a>";
 					}
 
@@ -84,7 +86,7 @@
 				<div class="flex-item order-2">
 					<div class="pizza">
 						<div class="pizza-foto">
-							<img src="images/pizzas/napolitana.jpg" alt="">
+							<img src="images/pizzas/personalizadas/pizza1.jpg" alt="">
 						</div>
 						<p>Armá tu pizza</p>
 						<div class="armado">
@@ -107,8 +109,8 @@
 					<div class="masa">
 						<p>Elegí la masa</p>
 						<ul>
-							<li><input type="radio" class="input-ing" name="masa" value="comun" checked><label for="">Común</label></li>
-							<li><input type="radio" class="input-ing" name="masa" value="sin gluten"><label for="">Sin gluten</label></li>
+							<li><input type="radio" class="input-ing" name="masa" value="masa comun" checked><label for="">Común</label></li>
+							<li><input type="radio" class="input-ing" name="masa" value="masa sin gluten"><label for="">Sin gluten</label></li>
 						</ul>
 					</div>
 					<div class="ingredientes">
@@ -116,39 +118,12 @@
 						<p class="info">Máximo 15 ingredientes</p>
 						<div class="box-scrolleable">
 							<ul>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="salsa de tomate"><label for="">Salsa de tomate</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="mozzarella"><label for="">Mozzarella</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="tomate natural"><label for="">Tomate natural</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="ajo"><label for="">Ajo</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="oregano"><label for="">Orégano</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="parmesano"><label for="">Parmesano</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="aceitunas"><label for="">Aceitunas</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="aceite de oliva"><label for="">Aceite de oliva</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="provolone"><label for="">Provolone</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="roquefort"><label for="">Roquefort</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="pepperoni"><label for="">Pepperoni</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="berenjena"><label for="">Berenjena</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="cebolla"><label for="">Cebolla</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="espinaca"><label for="">Espinaca</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="albahaca"><label for="">Albahaca</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="pimientos rojos"><label for="">Pimientos rojos</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="tomates cherry"><label for="">Tomates cherry</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="garbanzos cocidos"><label for="">Garbanzos cocidos</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="huevo"><label for="">Huevo</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="queso rayado"><label for="">Queso rayado</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="verdeo"><label for="">Verdeo</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="anchoas"><label for="">Anchoas</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="morrones"><label for="">Morrones</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="jamon"><label for="">Jamón</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="longaniza"><label for="">Longaniza</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="panceta"><label for="">Panceta</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="palmitos"><label for="">Palmitos</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="huevo duro"><label for="">Huevo duro</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="salsa golf"><label for="">Salsa golf</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="carne picada"><label for="">Carne picada</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="salsa blanca"><label for="">Salsa blanca</label></li>
-								<li><input type="checkbox" class="input-ing" name="ingredientes" id="champignones"><label for="">Champignones</label></li>
-		
+								<?php 
+									require_once("inc/class/pizza_class.php");
+
+									$pizza = new Pizza();
+									$pizza->obtenerIngredientesLista();
+								 ?>
 							</ul>
 						</div>
 					</div>
@@ -167,7 +142,14 @@
 				<div class="flex-item">
 					<div class="precio-btn">
 						<div class="precio">
-							<p>Precio: $<span>0</span></p>
+							<p>Precio: $<span>
+								<?php 
+									require_once("inc/class/pizza_class.php");
+
+									$pizza = new Pizza();
+									$pizza->obtenerPrecioInicialPersonalizada();
+								 ?>								
+							</span></p>
 						</div>
 						<a href="#" class="btn btn-success" id="agregarCarrito-Personalizada">Agregar al carrito</a>
 					</div>

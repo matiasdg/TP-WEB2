@@ -1,5 +1,5 @@
 <?php
-require (dirname(__DIR__)."/modelo.php");
+include_once (dirname(__DIR__)."/modelo.php");
 
 
 class Sistema extends Modelo {
@@ -235,6 +235,7 @@ class Sistema extends Modelo {
         $mailUsuario = $_REQUEST['mailUsuario'];
         $pass = $_REQUEST['pass'];
         $puedoIniciarSesion = false;
+        $dato = array();
 
         //Verifico si mailUsuario es el mail o el usuario.
         if(preg_match("/^[a-zA-Z0-9_ñÑáéíóÁÉÍÓÚ]*[@]+[a-z]+([.]{1}[a-z]+)*$/",$mailUsuario))
@@ -243,17 +244,27 @@ class Sistema extends Modelo {
             if(preg_match("/[\w]{6,}/",$pass))
             {
                 $passEncript = md5($pass);
-                $consulta = "SELECT nombre_usuario FROM USUARIO where mail = '$mailUsuario' and pass = '$passEncript'";
+                $consulta = "SELECT nombre_usuario, tipo_usuario FROM USUARIO where mail = '$mailUsuario' and pass = '$passEncript'";
                 $resultado = $this->db->query($consulta) or die( "Error: ".mysqli_error($this->db) );
 
                 if($resultado->num_rows === 1)
                 {
                     $puedoIniciarSesion = true;
+
+                    $fila = $resultado->fetch_object();
+
+                    if($fila->tipo_usuario === "admin")
+                    {
+                        $esAdmin = true;
+                    }else
+                    {
+                        $esAdmin = false;
+                    }
                 };
 
             }else
             {
-                echo "La contraseña ingresada no es válida.<br/>";
+                $dato['mensaje'] = "La contraseña ingresada no es válida.<br/>";
             }
         }else
         {
@@ -263,7 +274,7 @@ class Sistema extends Modelo {
                 if(preg_match("/[\w]{6,}/",$pass))
                 {
                     $passEncript = md5($pass);
-                    $consulta = "SELECT nombre_usuario FROM USUARIO where nombre_usuario = '$mailUsuario' and pass = '$passEncript'";
+                    $consulta = "SELECT nombre_usuario, tipo_usuario FROM USUARIO where nombre_usuario = '$mailUsuario' and pass = '$passEncript'";
                     $resultado = $this->db->query($consulta) or die( "Error en el SELECT: ".mysqli_error($this->db) );
 
                     if($resultado->num_rows === 1)
@@ -273,30 +284,53 @@ class Sistema extends Modelo {
 
                     while ($obj = $resultado->fetch_object()) {
                         $usuario = $obj->nombre_usuario;
+
+                        if($obj->tipo_usuario === "admin")
+                        {
+                            $esAdmin = true;
+                        }else
+                        {
+                            $esAdmin = false;
+                        }
                     }
 
                 }else
                 {
-                    echo "La contraseña ingresada no es válida.<br/>";
+                    $dato['mensaje'] = "La contraseña ingresada no es válida.<br/>";
                 }
             }else
             {
-               echo "El nombre de usuario o e-mail no es válido.<br/>";
+               $dato['mensaje'] = "El nombre de usuario o e-mail no es válido.<br/>";
             }
+
         }
 
         //Inicio session.
         if($puedoIniciarSesion)
         {
+            $dato['valido'] = true;
+            $dato['mensaje'] = "Todos los datos correctos.<br/>" ;
+
+
             session_start();
 
             $_SESSION['usuario'] = $usuario;
+            $_SESSION['id_usuario'] = md5($usuario);
 
-            echo "Bienvenido ".$_SESSION['usuario'];
+            if($esAdmin)
+            {
+               $_SESSION['tipo'] = "admin"; 
+            }else
+            {
+                $_SESSION['tipo'] = "cliente"; 
+            }
+
         }else
         {
-            echo "Los datos ingresados no son correctos.<br/>";
+            $dato['valido'] = false;
         }
+
+        echo json_encode($dato);
 
     }
 
@@ -370,6 +404,7 @@ class Sistema extends Modelo {
 
     public function verificarSesionIniciada(){
         $sesionIniciada;
+        $datos = array();
         
         if(!isset($_SESSION)){
             session_start();
@@ -377,13 +412,44 @@ class Sistema extends Modelo {
 
         if(isset($_SESSION['usuario'])){
             //Si existe una sesión sesionInicada será true.
+            $datosUsuario = self::obtenerDatosUsuario($_SESSION['usuario']);
             $sesionIniciada = true;
+
+            $datos = array("datosUsuario" => $datosUsuario,
+                            "sesionIniciada" => $sesionIniciada);
         }else
         {
             $sesionIniciada = false;
+            $datos = array("sesionIniciada" => $sesionIniciada);
         }
 
-        echo json_encode($sesionIniciada);
+        echo json_encode($datos);
+    }
+
+    private function obtenerDatosUsuario($usuario){
+
+        $consulta = "SELECT * FROM USUARIO WHERE nombre_usuario = '$usuario'";
+
+        $registros = $this->db->query($consulta) or die("Error Obteniendo los datos del usuario: " . mysqli_error($this->db));
+
+        $registro = $registros->fetch_object();
+
+
+        $datosUsuario = array("nombre" => "$registro->nombre", 
+                             "apellido"    => "$registro->apellido", 
+                             "usuario"   => "$registro->nombre_usuario",
+                             "tipo_dni"   => "$registro->tipo_dni",
+                             "numero_dni"   => "$registro->numero_dni",
+                             "calle"   => "$registro->calle",
+                             "altura"   => "$registro->altura",
+                             "depto"   => "$registro->depto",
+                             "partido"   => "$registro->partido",
+                             "provincia"   => "$registro->provincia",
+                             "telefono"   => "$registro->telefono",
+                             "celular"   => "$registro->celular",
+                             "email"   => "$registro->mail");
+
+        return $datosUsuario;
     }
 
 
@@ -422,7 +488,7 @@ class Sistema extends Modelo {
 
     }
 
-    public function enviarMail($filename, $path, $mailto, $from_mail, $from_name, $replyto, $subject, $message) {
+    public function enviarMail($filename, $path, $mailTo, $from_mail, $from_name, $replyto, $subject, $message) {
         $file = $path.$filename;
         $file_size = filesize($file);
         $handle = fopen($file, "r");
@@ -437,7 +503,7 @@ class Sistema extends Modelo {
         $header .= "Content-Type: multipart/mixed; boundary=\"".$uid."\"\r\n\r\n";
         $header .= "This is a multi-part message in MIME format.\r\n";
         $header .= "--".$uid."\r\n";
-        $header .= "Content-type:text/plain; charset=iso-8859-1\r\n";
+        $header .= "Content-type: text/html; charset='iso-8859-1'\r\n";
         $header .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
         $header .= $message."\r\n\r\n";
         $header .= "--".$uid."\r\n";
@@ -447,7 +513,7 @@ class Sistema extends Modelo {
         $header .= $content."\r\n\r\n";
         $header .= "--".$uid."--";
 
-        if (mail($mailto, $subject, "", $header)) {
+        if (mail($mailTo, $subject, " ", $header)) {
             echo "mail send ... OK"; // or use booleans here
         } else {
             echo "mail send ... ERROR!";
@@ -466,7 +532,70 @@ class Sistema extends Modelo {
         }
 
         return $mail;      
-    } 
+    }
+
+    public function cerrarSesion($sesion){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        
+        if($sesion === md5($_SESSION['usuario']))
+        {
+            session_destroy();
+        };
+
+    }
+
+    public function esAdministrador($usuario){
+
+        $consulta = "SELECT tipo_usuario FROM USUARIO WHERE nombre_usuario = '$usuario'";
+
+        $registros = $this->db->query($consulta) or die ("Error obteniendo el tipo de usuario: " . mysqli_error($this->db));
+
+        $registro = $registros->fetch_object();
+        if( $registro->tipo_usuario === 'admin' )
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
+    public function obtenerUsuariosAdmin(){
+
+        $consulta = "SELECT * FROM USUARIO";
+
+        $registros = $this->db->query($consulta) or die ("Error obteniendo el tipo de usuario: " . mysqli_error($this->db));
+
+        while($registro = $registros->fetch_object())
+        {
+            echo
+            "<tr id='".$registro->id_usuario."'>
+                <td>
+                    ".$registro->nombre_usuario."
+                </td>
+                <td>
+                    ".$registro->tipo_usuario."
+                </td>
+                <td>
+                    ".$registro->nombre."
+                </td>
+                <td>
+                    ".$registro->apellido."
+                </td>
+                <td>
+                    ".$registro->mail."
+                </td>
+                <td>
+                    <a href='modificarUsuarioAdmin' class='btn btn-info'>Modificar</a>
+                </td>
+                <td>
+                    <a href='#' class='btn btn-warning eliminarUsuarioAdmin'>Eliminar</a>
+                </td>
+            </tr>";
+        }
+    }
 }
 
 ?>

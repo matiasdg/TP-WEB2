@@ -1,6 +1,5 @@
 <?php
-require (dirname(__DIR__)."/modelo.php");
-require (dirname(__DIR__)."libs/fpdf/fpdf.php");
+require (dirname(__DIR__)."/libs/fpdf/fpdf.php");
 
 
 
@@ -15,28 +14,14 @@ class PDF extends Modelo {
     	
 
     	//Creo el PDF
+    	$fecha_pedido = date("d/m/y");
        	$miPDF = new FPDF(); 
 		$miPDF->AddPage(); 
 		$miPDF->SetFont('Helvetica','B',12);
 		$miPDF -> SetTextColor( 0 , 0 , 0);
-		$cabecera = array(iconv('UTF-8', 'windows-1252', "Año"), "Mes", "Ingresos", "Gastos", "Bal. Mensual", "Bal. Global");
-		
-		for ($i = 0; $i < count( $cabecera) ; $i++)
-		{
-			$mipdf -> SetFillColor( 191 , 191 , 191 );
-			$mipdf -> Cell ( 30 , 10 , $cabecera[ $i ], 1 , 0 , 'C' , true );
-		}
-
-		$mipdf -> Ln( 10);
-
-
-		//Consulto los datos del pedido con ese id_pedido y los extraigo, para posteriormente volcarlos al pdf.
-		$consulta = "SELECT * FROM PEDIDOS WHERE id_pedido = $id_pedido";
-		$registrosPedido = $this->db->query($consulta)
-				 	or die("Error consultando los datos del pedido" . mysqli_error($this->db));
+		$miPDF -> SetFillColor( 255 , 255 , 255 );
 
 		//Consulto los datos del usuario.
-		$usuario = md5($usuario);
 		$consulta = "SELECT * FROM USUARIO WHERE nombre_usuario = '$usuario'";
 		$registrosUsuario = $this->db->query($consulta)
 				 	or die("Error consultando los datos del usuario" . mysqli_error($this->db));
@@ -49,26 +34,89 @@ class PDF extends Modelo {
 
 		}
 
+		$miPDF->Cell(0 , 10 , 'Variepizzas', 0 , 0 , 'L' , true);
+		$miPDF -> Ln( 10);
+		$miPDF->Cell(0 , 10 , 'Fecha: '.$fecha_pedido, 0 , 0 , 'L' , true);
+		$miPDF -> Ln( 10);
+		$miPDF->Cell(0 , 10 , iconv('UTF-8', 'windows-1252', 'Cliente: '.$nombre.' '.$apellido.'. DNI: '.$dni), 0 , 0 , 'L' , true);
+		$miPDF -> Ln( 10);
 
-		while ($objeto = $registrosPedido->fetch_object())
+
+		//Consulto los datos del pedido con ese id_pedido y los extraigo, para posteriormente volcarlos al pdf.
+		$consulta = "SELECT * FROM PEDIDOS WHERE id_pedido = $id_pedido";
+		$registrosPedido = $this->db->query($consulta)
+				 	or die("Error consultando los datos del pedido" . mysqli_error($this->db));
+
+		$objeto = $registrosPedido->fetch_object();
+
+		$calle = $objeto->calle;
+		$altura = $objeto->altura;
+		$depto = $objeto->depto;
+		$modo_pago = $objeto->modo_pago;
+
+
+		$miPDF->Cell(0 , 10 , iconv('UTF-8', 'windows-1252', 'Dirección entrega: '.$calle.' '.$altura.'. Departamento: '.$depto), 0 , 0 , 'L' , true);
+		$miPDF -> Ln( 10);
+
+		$miPDF->Cell(0 , 10 , 'Modo pago: '.$modo_pago, 0 , 0 , 'L' , true);
+		$miPDF -> Ln( 10);
+		$miPDF->Cell(0 , 10 , 'Pedido: '.$id_pedido, 0 , 0 , 'L' , true);
+		$miPDF -> Ln( 10);
+		$miPDF->Cell(0 , 10 , 'Productos: ', 0 , 0 , 'L' , true);
+		$miPDF -> Ln( 10);
+
+		(float) $total = 0;
+
+		$registrosPedido = $this->db->query($consulta)
+				 	or die("Error consultando los datos del pedido" . mysqli_error($this->db));
+
+
+		$miPDF -> Cell( 55, 10 , 'Nombre', 1, 0, 'C' , true );
+		$miPDF -> Cell( 55, 10 , 'Detalles', 1, 0, 'C' , true );
+		$miPDF -> Cell( 55, 10 , iconv('UTF-8', 'windows-1252', 'Tamaño'), 1, 0, 'C' , true );
+		$miPDF -> Cell( 20, 10 , 'Precio', 1, 0, 'C' , true );
+		$miPDF -> Ln( 10);
+		
+		$miPDF->SetFont('Helvetica');
+
+		while ($objetos = $registrosPedido->fetch_object())
 		{
-			$fecha =
+			
+			$miPDF -> Cell( 55, 10 , iconv('UTF-8', 'windows-1252', $objetos->producto), 0, 0, 'C' , true );
+			$current_y = $miPDF->GetY();
+			$current_x = $miPDF->GetX();
+			$miPDF -> MultiCell( 55, 10 , iconv('UTF-8', 'windows-1252', $objetos->detalles), 0, 'C' , true );
+			$altoProducto = $miPDF->GetY();
 
-			$mipdf -> SetFillColor( 255 , 255 , 255 );
-			$mipdf -> Cell( 30, 10 , $anio, 1, 0, 'C' , true );
-			$mipdf -> Cell( 30, 10 , $mes, 1, 0, 'C' , true );
-			$mipdf -> Cell( 30, 10 , "$".$ingreso_total, 1, 0, 'C' , true );
-			$mipdf -> Cell( 30, 10 , "$".$gasto_total, 1, 0, 'C' , true );
-			$mipdf -> Cell( 30, 10 , "$".$balance_mes, 1, 0, 'C' , true );
-			$mipdf -> Cell( 30, 10 , "$".$balance_fecha, 1, 0, 'C' , true );
-			$mipdf -> Ln( 10);
+			$miPDF->SetXY($current_x + 55, $current_y);
+			$current_x = $miPDF->GetX();
+
+			$miPDF -> Cell( 55, 10 , $objetos->tamanio, 0, 0, 'C' , true );
+			$miPDF -> Cell( 20, 10 , '$'.$objetos->precio, 0, 0, 'C' , true );
+
+			$miPDF -> Ln( 10);
+			$current_x = $miPDF->GetX();
+			$miPDF->SetXY($current_x, $altoProducto);
+			$miPDF -> Cell( 185, 1 , '', 'T', 0, 'C' , true );
+			$miPDF -> Ln( 1);
+
+			(float)$total = (float)$total + (float)$objetos->precio;
 		}
+
+		$current_x = $miPDF->GetX();
+		$miPDF->SetXY($current_x, $altoProducto);
+
+		$miPDF->SetFont('Helvetica','B',12);
+
+		$miPDF -> Ln( 2);
+		$miPDF -> Cell( 185, 10 , 'Precio total: $'.$total, 0, 0, 'R' , true );
 
 
 
 		$format="%d%m%Y%H%M%S";
 		$date=strftime($format);
-		$url = 'comprobante'.$date.'.pdf';
+		$nombrePDF = 'comprobante'.$date.'.pdf';
+		$url = dirname(__DIR__).'/comprobantes/'.$nombrePDF;
 		
 
 		$miPDF->Output($url,'F');

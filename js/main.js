@@ -21,7 +21,7 @@ $(document).ready(function(){
 	    closeEffect : 'none'
 	});
 
-	//Botones del Carrito
+	//Botones del p
 	$('#eliminar-productos-carrito').click(eliminarProductosCarrito);
 
 	$("#cancelar-productos-carrito").click(cancelarProductosCarrito);
@@ -267,11 +267,9 @@ function eliminarProducto(){
 	//Lo elimino del carrito:
 	$(".item-false").each(function(){
 		
-		id = $(".item-false").attr("id");
+		id = $(this).attr("id");
 		items.push(id);
 	});
-
-	console.log("items: " + items);
 
 	var itemsJSON = JSON.stringify(items);
 	$.get( "inc/controller/eliminarProductoCarrito.php", { items : itemsJSON }, actualizarPrecioCarrito );
@@ -279,7 +277,16 @@ function eliminarProducto(){
 }
 
 function actualizarPrecioCarrito(dato){
-	$(".total p span").text(dato);
+	$(".main .wrapper .carrito").html(dato);
+
+	$('#eliminar-productos-carrito').click(eliminarProductosCarrito);
+
+	$("#cancelar-productos-carrito").click(cancelarProductosCarrito);
+	
+	//$('#confirmar-productos-carrito').click(confirmarProductosCarrito);
+
+	$(".item").click(cambiarEstadoItem);
+	
 }
 
 // function calcularDemora(){

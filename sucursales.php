@@ -50,7 +50,7 @@
 					    	<li id='open-menu-usuario'>
 					    		<a href='#' id='usuario'>".$_SESSION['usuario']."</a>
 							    <ul class='usuario-menu-desplegable'>
-									<li><a href='#'>Cerrar sesión</a></li>
+									<li><a href='#cerrarSesion' id='cerrarSesion'>Cerrar sesión</a></li>
 							    </ul>					    		
 					    	</li>
 					    </ul> ";
